@@ -1,6 +1,9 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 
+% for \url{}
+\usepackage{hyperref}
+
 \title{Compute Servers for Teaching Big Data}
 \author{Clark Fitzgerald}
 \begin{document}
@@ -9,7 +12,7 @@
 
 \begin{abstract}
 
-I’ve taught an upper division statistics ``Big Data'' course at UC Davis and CSU Sacramento and have gained some perspective on what works well for this course.
+I've taught an upper division statistics ``Big Data'' course at UC Davis and CSU Sacramento and have gained some perspective on what works well for this course.
 My goals with the course are to get students comfortable with using remote machines and to do realistic analysis of data sets that don’t fit in memory, typically on the order of 100GB or so.
  
 I’ve tried what feels like an excessive number of ways to run the server for the students to get the `server experience':
@@ -21,12 +24,73 @@ Physical server in the corner of my office (current solution!)
 
 \end{abstract}
 
+I developed and have taught the course Stat 129, titled `Analyzing and Processing Big Data'.
+The catalog course description is:
+
+\emph{
+Statistical analysis of large, complex data sets. Topics include memory efficient data processing, the split-apply-combine strategy, rewriting programs for scalability, handling complex data formats, and applications such as statistical learning, dimension reduction, and efficient data representation. Students will access data and run code on remote servers.
+}
+
+
+Many of the techniques that we teach in this class work equally well on a modern laptop as on a server.
+
+It's essential that students access data and run code on remote servers, because there is a qualitative difference between running code on a laptop that's sitting in front of you and a machine that you never actually see, that you can only access through ssh, secure shell.
+I teach bash, the classic command line, because it has proven to be a durable technology; it's been around since the 1970's, and it isn't going away any time soon.
+In general, students benefit when instructors focus on proven core technologies, rather than on what happens to be popular this year, because they come away with skills that they can apply in many different contexts.
+
+My goal with the command line is for them to do it enough that they get over the initial fear that comes from moving from a Graphical User Interface (GUI), so they will be more comfortable in the future.
+Thus we need an actual remote server that students can log in to so that they can perform the tasks.
+The problem is that my job doesn't provide such a server.
+If I want students to have this experience, then it is on me to find and manage such a server.
+You may be in a similar situation of wanting to teach a class that relies on a server, and are wondering how should you do it?
+If so, read on.
+
+\Section{Which Data?}
+
 The class is called `Big Data'.
 For this term to have any meaning, we need to define what we mean by `big'.
 For the purposes of this class, a `big' data set is one that is large enough that one cannot load the entire data set into a laptop's memory at once.
 Once a data set is this large, it's not possible to simply load the whole thing and start working using R or Python.
 My goal is to choose data sets that are comfortably over this threshold, such that the techniques we're learning are motivated, but not gratuitously large such that answering a basic question takes many hours.
 Practically speaking, from 2019 until the present I try to choose data sets that are on the order of 10 or 100 GB.
+The data analysis tasks will typically take 1 to 10 minutes if done in serial, and will be an order of magnitude faster if done in parallel.
 
+While teaching this course, I have to select data sets.
+Everything that we do in the course is based on working with a legitimate, unwieldy, data set.
+In general, I'm looking for the following characteristics:
+\begin{enumerate}
+\item \textbf{Publicly Available} data should be available for legal public download.
+\item \textbf{Size} large enough to motivate the computational techniques we're learning, but no larger.
+\item \textbf{Format} common format, at least one tabular and another nested. Typically we will do a CSV/TSV for the tabular, and XML or JSON for the nested.
+\item \textbf{Background Knowledge} a college student should be able to understand what the data actually represents with minimal effort.
+\end{enumerate}
+
+Most of these principles I've violated at one time or another, and the difficulties became clear later.
+
+Amazon Open Data \url{https://registry.opendata.aws/} has provided a reliably good source of large data sets fitting these criterion. 
+Another good source is the US government \url{https://data.gov/}.
+
+Once I find a data set to work with, I download it to the server and massage it into the form where I want my students to see.
+A large part of the course is `cleaning' the data, preparing it for analysis by filtering, imputing, etc.
+TODO: cite
+However, it requires judgement as to which cleaning tasks are good for the students learning, and which are merely tedious or too uncommon.
+
+
+\subsection{server options}
+
+I'm an Assistant Professor in the Mathematics and Statistics Department at CSU Sacramento, a regional university.
+I have some professional background with computers and programming.
+In particular, I've done some server administration, and that experience has definitely proven useful when teaching this class.
+
+Our department plans to offer Stat 129 once a year for the foreseeable future, so we need a long term solution for a server.
+In a particular year we'll have one instructor, 15-25 students, and no TA's or other support.
+
+I don't need a large machine for any purpose other than teaching.
+
+What follows are the server options, ordered by my personal preference.
+
+\section{Best option - Dedicated support}
+
+If you're in the lucky position of having compute infrastructure with dedicated support, then I encourage you to exhaust 
 
 \end{document}
