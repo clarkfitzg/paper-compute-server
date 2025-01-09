@@ -1,4 +1,8 @@
-\documentclass{article}
+\documentclass[12pt]{article}
+
+\usepackage{geometry}
+\geometry{margin=1in}
+
 \usepackage[utf8]{inputenc}
 
 % for \url{}
@@ -45,7 +49,7 @@ If I want students to have this experience, then it is on me to find and manage 
 You may be in a similar situation of wanting to teach a class that relies on a server, and are wondering how should you do it?
 If so, read on.
 
-\Section{Which Data?}
+\section{Which Data?}
 
 The class is called `Big Data'.
 For this term to have any meaning, we need to define what we mean by `big'.
@@ -131,6 +135,7 @@ If something goes wrong, I'm the only one who's going to fix it.
 For a class of 15 students, I found that a single 32 core CPU with 128 GB of memory was just sufficient for students to experience the class assignments in the way I intended.
 I always recommend that students do their homework well before the due date, because if a handful of users are simultaneously trying to use parallel jobs with all available CPU cores, then they won't see the speedup they are expecting.
 In practice it happened occassionaly that students who waited until the last hour to do an assignment didn't get to see their final result, but they weren't surprised, because I had warned them many times and they knew to expect this.
+I've used a 16 core CPU in previous classes, and found that it was not sufficient.
 With more students, I believe that students would feel crowded on the server.
 
 One technical detail to be aware of is that you must provide remote access so that others can log on to the machine.
@@ -143,5 +148,57 @@ The physical server feels out of date, and lacks the cachet of being `the cloud'
 Despite that, it provides a legitimate and simple way to get students using a remote server.
 From a student's perspective, there's no difference between \texttt{ssh} to this machine, or to a virtual machine that you own that's running on the cloud.
 
+With either cloud option, you have two ways to provide students with access to a server: they can create their own virtual machines, or they can use a machine that you provide.
+If the students can have their own account in the cloud, then they can create their own virtual machines which they have complete control over, and can delete when they are done.
+They are the administrators to these machines with \texttt{sudo} access, so they can do anything they wish, and any mistakes they make won't affect anyone else.
+This would be a good option if the course is designed to teach them more about infrastructure, for example, you could allow them to implement their own web applications.
+
+With the second option, you create a virtual machine that's sufficiently large to accommadate all of the students simultaneously.
+You can either give the students SSH access, or allow them to access through a web interface, for example with JupyterHub or RStudio Cloud.
+The downside here is that you need to pay for a large enough machine all the time, or else manually load balance by switching to smaller or larger machines as the demand changes.
+
+
+
+\section{Option 2 - Public Cloud}
+
+I have had generally an excellent experience using the publicly funded cloud, Jetstream2.
+The two big benefits of this model are that it's free for the students, and it's a relatively simple way for the students to get real cloud experience..
+In this model, you apply for an allocation, Jetstream reviews and awards you a certain number of compute hours, you set up the accounts.
+To do the work, each student creates their own virtual machine and uses it to do the data analysis.
+I applied, was approved, and had everything set up in less than a week.
+
+The website \url{https://jetstream-cloud.org/index.html} states:
+TODO: cite
+
+\begin{quote}
+Jetstream2 makes cutting-edge high-performance computing and software easy to use for research regardless of your project’s scale, even if you have limited experience with supercomputing systems.
+
+Cloud-based and on-demand, the Jetstream2 environment also includes discipline-specific apps. You can even create virtual machines that look and feel like your lab workstation or home machine—but with thousands of times the computing power.
+\end{quote}
+
+The Jetstream2 user interface and options are far simpler than commercial cloud providers.
+
+Two disadvantages of Jetstream2 for teaching are the security model, and the lack of safeguards.
+Jetstream2 seems to be focused on allowing individual researchers and small groups, and enabling them to do projects with more compute than they would otherwise be able to.
+What I did, teaching a class where every student gets access, is certainly not the primary use case.
+When you're awarded an allocation, every user gets complete access to every part of the account.
+Students have administrative access to everything the instructor creates, and every other students machine.
+There are no limits on how much compute an individual can use, so it's possible for one user to use up all the credits.
+In other words, the only thing that's stopping them from doing something bad is their own awareness and respect for others.
+I mostly got around these issues by setting very clear expectations for behavior, with the understanding that this whole idea is based on trust.
+Even so, a student unintentionally left a large machine running for several weeks.
+I wasn't dilligently monitoring, so this used up around 25\% of our compute credits.
+Fortunately, we still had plenty to get through the course.
+
+A technical detail you'll have to handle is how students will access the large data sets.
+Jetstream2 provides data storage through the Manila Filesystems as a service, and this worked well for sharing large data sets across several different running instances.
+
+Another disadvantage for my use case is the uncertainty of how many years I'll be able to rely on it to continue offering the course, as I need to renew it annually.
+Jetstream2 is not designed as a long term solution for institutions offering the same course year after year. 
+I expect they would renew every year, but there's no guarantee of this happening.
+
+\section{Option 3 - Public Cloud}
+
+I've mostly 
 
 \end{document}
