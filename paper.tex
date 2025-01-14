@@ -28,6 +28,10 @@ Physical server in the corner of my office (current solution!)
 
 \end{abstract}
 
+\section{Introduction}
+
+% TODO: Context, definitions, goals of the course, benefits of such a course to students
+
 I developed and have taught the course Stat 129, titled `Analyzing and Processing Big Data'.
 The catalog course description is:
 
@@ -35,6 +39,8 @@ The catalog course description is:
 Statistical analysis of large, complex data sets. Topics include memory efficient data processing, the split-apply-combine strategy, rewriting programs for scalability, handling complex data formats, and applications such as statistical learning, dimension reduction, and efficient data representation. Students will access data and run code on remote servers.
 }
 
+Our general approach to data science education is to provide students with real world data sets and ask open ended questions, squarely in the tradition of Deborah Nolan and Duncan Temple Lang \cite{nolan2010computing}.
+Indeed, they were our teachers and mentors.
 
 Many of the techniques that we teach in this class work equally well on a modern laptop as on a server.
 
@@ -49,7 +55,7 @@ If I want students to have this experience, then it is on me to find and manage 
 You may be in a similar situation of wanting to teach a class that relies on a server, and are wondering how should you do it?
 If so, read on.
 
-\section{Which Data?}
+\subsection{Which Data?}
 
 The class is called `Big Data'.
 For this term to have any meaning, we need to define what we mean by `big'.
@@ -80,7 +86,7 @@ TODO: cite
 However, it requires judgement as to which cleaning tasks are good for the students learning, and which are merely tedious or too uncommon.
 
 
-\subsection{server options}
+\section{server options}
 
 I'm an Assistant Professor in the Mathematics and Statistics Department at CSU Sacramento, a regional university.
 I have some professional background with computers and programming.
@@ -95,7 +101,7 @@ What follows are the server options, ordered by my personal preference.
 
 What do you actually need to teach a class like this?
 
-\section{Best option - Dedicated Support and Infrastructure}
+\subsection{Best option - Dedicated Support and Infrastructure}
 
 If you're in the lucky position of having compute infrastructure with dedicated support in your department, college, or university, then this is an ideal option for teaching classes.
 You simply ask the system administrator for what you need, and they'll make it happen.
@@ -111,9 +117,14 @@ While teaching at UC Davis, the system administrator's helped me with the follow
 A systems administrator can do many other things, of course.
 Just ask!
 
+I've used more traditional supercomputers with job queueing software (SLURM) for teaching this class, but I feel that this is not ideal for the class, because of the amount of overhead, and the abstraction.
+For example, one topic that we cover is reading the output of \texttt{top/htop} to identify a bottleneck in a shell pipeline that's streaming hundreds of GB of data.
+It's possible to do this with job queueing software where the job is running on a worker node, but it takes either more advanced knowledge, or something specific to that system.
+Whenever possible I try to teach the tools that are the most common and widely applicable, to better serve the students in their future careers.
+
 I feel that timely support is much more important the physical compute power, especially if the class is small.
 
-\section{Option 1 - Personal Physical Server}
+\subsection{Option 1 - Personal Physical Server}
 
 A personal physical server is either in a rack in a server room somewhere on campus, or else a large box in an office.
 If it's in a server rack then you can generally get a machine with higer specs, better internet connectivity, and it's not cluttering up your space.
@@ -149,17 +160,21 @@ Despite that, it provides a legitimate and simple way to get students using a re
 From a student's perspective, there's no difference between \texttt{ssh} to this machine, or to a virtual machine that you own that's running on the cloud.
 
 With either cloud option, you have two ways to provide students with access to a server: they can create their own virtual machines, or they can use a machine that you provide.
-If the students can have their own account in the cloud, then they can create their own virtual machines which they have complete control over, and can delete when they are done.
+I've used both of these options, and they both have a place, depending on the goals of the class.
+
+The first option provides more true `cloud' experience.
+The students can have their own account with the cloud provider, they create their own virtual machines which they have complete control over, and they delete them when they are done.
 They are the administrators to these machines with \texttt{sudo} access, so they can do anything they wish, and any mistakes they make won't affect anyone else.
 This would be a good option if the course is designed to teach them more about infrastructure, for example, you could allow them to implement their own web applications.
 
-With the second option, you create a virtual machine that's sufficiently large to accommadate all of the students simultaneously.
+The second option allows students to focus more on the data analysis rather than the infrastructure.
+You, the instructor, create a virtual machine that's sufficiently large to accommadate all of the students simultaneously.
 You can either give the students SSH access, or allow them to access through a web interface, for example with JupyterHub or RStudio Cloud.
 The downside here is that you need to pay for a large enough machine all the time, or else manually load balance by switching to smaller or larger machines as the demand changes.
 
 
 
-\section{Option 2 - Public Cloud}
+\subsection{Option 2 - Public Cloud}
 
 I have had generally an excellent experience using the publicly funded cloud, Jetstream2.
 The two big benefits of this model are that it's free for the students, and it's a relatively simple way for the students to get real cloud experience..
@@ -196,9 +211,59 @@ Jetstream2 provides data storage through the Manila Filesystems as a service, an
 Another disadvantage for my use case is the uncertainty of how many years I'll be able to rely on it to continue offering the course, as I need to renew it annually.
 Jetstream2 is not designed as a long term solution for institutions offering the same course year after year. 
 I expect they would renew every year, but there's no guarantee of this happening.
+If they choose not to renew, then I'll need to look for another solution.
 
-\section{Option 3 - Public Cloud}
+\subsection{Option 3 - Commercial Cloud}
 
-I've mostly 
+Several companies offer commercial cloud services.
+I focused mainly on Amazon Web Services (AWS), the biggest and most popular vendor, so that our students can get marketable experience that they can then put on their resume.
+My favorite feature of AWS is the direct access to Amazon's high quality open data sets through the \texttt{aws s3} command line tools.
+From an instructor's perspective, this eliminates the step of downloading the data and making it available to students.
+
+The financial aspect is not ideal for students.
+These are commercial services, so a student must have a credit card and be prepared to pay for any compute time and storage that they use.
+In Spring 2022, I found that students on AWS can generally get the data processing experience for \$20 or less in one semester.
+If they make a mistake, say using an expensive service and forgetting to shut it off, then they can easily run up an expensive and unexpected bill that can be tough for a college student to cover.
+In the past, AWS offered an educational program with free credits for students.
+The big selling point for me was that students didn't need to even provide a credit card.
+I used this program, but they discontinued it, leaving me searching for other options.
+For a busy faculty member, this is a waste.
+
+Complexity and vendor specificity are also problems when teaching with cloud services.
+Amazon's EC2 (cloud compute server) ``provides a wide selection of over 750 instance types optimized to fit different use cases.''
+There are also hundreds of different services and several world regions to choose from.
+The services often have company specific names, which makes it difficult for an instructor to understand what they are.
+Indeed, the main purpose of the `AWS Cloud Practitioner' qualification seems to be to understand all of these proprietary names and services.
+This vendor specific education is all well and good if Amazon is providing the training, however, at a public institution my goal is to focus on the overarching concepts and portable technologies that a student can take and apply anywhere, regardless of the specific vendor.
+
+While I feel that the commercial cloud services aren't currently the best choice for me, they might be the best choice for you.
+If you already have experience with a particular cloud provider, or you wish to build that experience, then go for it.
+If your institution has some connection with a cloud provider, then it may be mutually beneficial to leverage those connections.
+For example, the company may provide cloud services for free in exchange for the ability to recruit graduates into that company.
+
+I do believe that viable options can be built using commercial cloud services.
+For example, RStudio, Anaconda, and Snowflake offer cloud services that are essentially a higher level abstraction and user interface catered towards the data science R, Python, or SQL user.
+
+\section{Future Steps}
+
+If it was easier to set up and run a server, then I believe that more instructors would be interested in teaching this kind of class.
+For a lone instructor with no support, the barriers to entry are significant.
+I would welcome a solution that provides this capability publicly.
+It must have the following features:
+\begin{enumerate}
+\item \textbf{command line access} If this is present, then it should be possible to install and use all manner of command line software, including R, Python, and SQL.
+\item \textbf{100 GB data storage} 
+\item \textbf{free or low cost} Free for students is ideal, of course.
+    If that's not possible, then the cost over the semester should not exceed that of a reasonably priced textbook.
+\end{enumerate}
+Based on our observations above, there are several other features that would be nice to have, and I list them here in order of preference.
+
+\begin{enumerate}
+\item \textbf{longevity} It's much easier for instructors to invest in a particular solution if they can be sure that it will be around in 5 years.
+\end{enumerate}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
 
 \end{document}
