@@ -54,18 +54,19 @@ In Stat 129 students ask real questions based on real data that resides on a rea
 
 \subsection{Why a Server?}
 
-It's essential that students access data and run code on remote servers for a class on `Big Data', because there is a qualitative difference between running code on a laptop that's sitting in front of you and a machine that you never actually see, that you can only access through ssh, secure shell.
-We teach bash, the classic command line, because it has proven to be a durable technology; it's been around since the 1970's, and it isn't going away any time soon.
-In general, students benefit when instructors focus on proven core technologies, rather than on what happens to be popular this year, because they come away with skills that they can apply in many different contexts.
+Students must access data and run code on remote servers for a class on `Big Data', because that's where big data is typically found: on remote servers.
+There is a qualitative difference between the experience of running code on a laptop with a monitor that's sitting in front of you, and on a machine that you never actually see, that you can only access through \texttt{ssh}, secure shell.
+Our goal with embracing the shell is to move students beyond the initial unfamiliarity and discomfort that users experience when they first move away from a Graphical User Interface (GUI).
+%Incidentally, many of the techniques for processing data larger than memory that we teach in this class work equally well on a modest laptop as on a powerful server.
+To access the large data sets and complete the assignments, quizzes, and exams, the students must login to the class server through \texttt{ssh}.
 
-Our goal with the command line is for them to do it enough that they get over the initial fear that comes from moving from a Graphical User Interface (GUI), so they will be more comfortable in the future.
-Thus we need an actual remote server that students can log in to so that they can perform the tasks.
-The problem is that our job doesn't provide such a server.
-If we want students to have this experience, then it is on me to find and manage such a server.
-You may be in a similar situation of wanting to teach a class that relies on a server, and are wondering how should you do it?
-If so, read on.
+We teach the classic shell bash, because it has proven to be a durable technology.
+If one hopes to do anything with more advanced tools such as larger compute clusters or frameworks such Hadoop, then a foundational knowledge of bash is essential.
+TODO: cite
+In general, students in technology oriented class such as Stat 129 benefit when instructors focus on ubiquitous and proven core technologies, rather than on what happens to be popular this year, because then they come away with skills that they can apply in many different contexts.
 
-Incidentally, many of the data processing techniques that we teach in this class work equally well on a laptop as on a server.
+%Thus we need an actual remote server that students can log in to so that they can perform the tasks.
+
 
 \subsection{Which Data?}
 
@@ -104,6 +105,12 @@ However, it requires judgement as to which cleaning tasks are good for the stude
 % Introduce 
 
 Which server option is best depends on the goals of the course, the level of institutional support, the number of students enrolled, the background of the students, and the background of the instructor.
+
+%The problem is that our job doesn't provide such a server.
+%If we want students to have this experience, then it is on me to find and manage such a server.
+%You may be in a similar situation of wanting to teach a class that relies on a server, and are wondering how should you do it?
+%If so, read on.
+
 
 
 Here's our background.
