@@ -70,35 +70,43 @@ In general, students in technology oriented class such as Stat 129 benefit when 
 
 \subsection{Which Data?}
 
-The class is called `Big Data'.
-For this term to have any meaning, we need to define what we mean by `big'.
-For the purposes of this class, a `big' data set is one that is large enough that one cannot load the entire data set into a laptop's memory at once.
-Once a data set is this large, it's not possible to simply load the whole thing and start working using R or Python.
-Our goal is to choose data sets that are comfortably over this threshold, such that the techniques we're learning are motivated, but not gratuitously large such that answering a basic question takes many hours.
-Practically speaking, a typical student laptop will have between 4 and 32 GB of memory at the time of this writing, and data sets that are on the order of 10-100 GB on disk work well to motivate the techniques.
-We assign common data analysis tasks that typically take 1 to 10 minutes if done in serial, and will be an order of magnitude faster if done in parallel.
+%The term `Big Data' appears in the title for Stat 129; for this term to be more than a buzz word, we need to define it.
+% TODO: Could talk about how others use this term.
+For the purposes of Stat 129, `big data' means a data set that is large enough such that one cannot load the entire data set into a laptop's memory at once.
+In a typical introductory data analysis class, a student reads a single data file into R or Python and proceeds with the analysis steps \cite{dsbox}.
+This works great if the data fits into memory, but if the data does not fit into memory, then it simply doesn't work.
+Data sets that are larger than memory require entirely different approaches, such as streaming through to filter out a subset of interest.
+%Once a data set is this large, it's not possible to simply load the whole thing and start working using R or Python.
+Our goal is to choose data sets that are comfortably over this memory threshold, such that the techniques we're learning are motivated, but not gratuitously large such that answering a basic question takes an excessive amount of time.
+Practically speaking, at the time of this writing, a typical student laptop will have between 4 and 32 GB of memory, and data sets that are on the order of 10-100 GB on disk work well to motivate the techniques.
+We assign common data analysis tasks that typically take 1 to 10 minutes if done in serial, and are an order of magnitude faster if done in parallel.
 
-While teaching this course, we have to select data sets.
-Everything that we do in the course is based on working with a legitimate, unwieldy, data set.
-In general, I'm looking for the following characteristics:
+%While teaching this course, we have to select data sets.
+%Everything that we do in the course is based on working with a legitimate, unwieldy, data set.
+When teaching Stat 129, we look for data sets that satisfy the criteria below.
 \begin{enumerate}
-\item \textbf{Publicly Available} data should be available for legal public download.
-\item \textbf{Size} large enough to motivate the computational techniques we're learning, but no larger.
-\item \textbf{Format} common format, at least one tabular and another nested. Typically we will do a CSV/TSV for the tabular, and XML or JSON for the nested.
-\item \textbf{Background Knowledge} a college student should be able to understand what the data actually represents with minimal effort.
+\item \textbf{Publicly Available} The data should be available for legal public download.
+	Special permissions, non disclosure agreements, and licensing all take time away from teaching.
+\item \textbf{Size} The files should be large enough to motivate the computational techniques we're learning, but no larger.
+\item \textbf{Format} The storage format should be a common one that students will encounter in data science work, so that students can directly apply what they learn in class.
+	Avoid proprietary, novel, or highly specialized data formats.
+	In one semester of Stat 129, we work with data in a plain text tabular format such as CSV or TSV, and nested formats such as XML or JSON.
+\item \textbf{Background Knowledge} A college student should be able to understand what the data actually represents.
+	If you cannot explain the essential structure and idea in a single class period, then that data is probably too complex.
 \end{enumerate}
-
-Most of these principles We've violated at one time or another, and the difficulties became clear later.
-
-Amazon Open Data \url{https://registry.opendata.aws/} has provided a reliably good source of large data sets fitting these criterion. 
+These criteria don't necessarily apply to more domain specific classes, for example, a bioinformatics class studying genomes would do well to focus on genomic data.
+%Most of these principles We've violated at one time or another, and the difficulties became clear later.
+Amazon Open Data \url{https://registry.opendata.aws/} has provided a reliably good source of large data sets fitting these criteria. 
 Another good source is the US government \url{https://data.gov/}.
 
-Once we find a data set to work with, we download it to the server and massage it into the form where we want our students to see.
-A large part of the course is `cleaning' the data, preparing it for analysis by filtering, imputing, etc.
-TODO: cite
-However, it requires judgement as to which cleaning tasks are good for the students learning, and which are merely tedious or too uncommon.
+We often find interesting data sets that are close, but not quite what we're looking for.
+In this case, it may be possible to process the data set before providing it to students to make it better suit the goals of the course.
+As a specific example, consider the tax return data on nonprofits provided by the Internal Revenue Service of the United States\cite{irs990}.
+We removed the XML namespace information in these files so that students learning XPATH can write \texttt{"//ActivityOrMissionDesc"} to find the `activity or mission description' for a particular nonprofit rather than the cumbersome \texttt{//*[local-name()='ActivityOrMissionDesc']}.
+The latter is distracting for students just learning XPATH.
 
-
+The large data sets are the heart of Stat 129.
+To properly analyze them we need to provide our students with a compute server.
 
 \section{Server Options}
 
