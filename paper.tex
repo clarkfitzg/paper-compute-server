@@ -19,11 +19,13 @@
 
 \begin{abstract}
 
-    We compare and contrast different server options for providing undergraduate students with an authentic experience analyzing large, real world data sets located on powerful remote servers.
-These server options include institutionally supported academic computers, commercial cloud services, public cloud services, and personal physical machines.
+% 112 words in abstract
+% 4500 words in document
+    We compare and contrast different compute server options for teaching an undergraduate statistics class centered on analyzing large, real world data sets located on powerful remote servers.
+These options include institutionally supported servers, personal physical servers, public cloud services, and commercial cloud services.
 % TODO: Align these options with the sections
-We briefly describe the course, and offer suggestions on when to choose which server option, based on the background of the instructor and the level of institutional support.
-Looking to the future, we suggest requirements for a broadly shared educational compute service that will allow more instructors to teach similar classes without the overhead of having to manage and administer their own server.
+We briefly describe the course, share our experience with each of these options including advantages and disadvantages, mention some technical considerations, and suggest when to choose which option.
+Looking to the future, we outline requirements for a broadly shared educational compute service that will allow more instructors to teach similar classes without the overhead of having to manage and administer their own server.
 
 \end{abstract}
 
@@ -139,7 +141,7 @@ There's no one size fits all solution, and what's best for you may well differ f
 
 %What do you actually need to teach a class like this?
 
-\subsection{Dedicated Support}
+\subsection{Institutional Support}
 
 If you're in the lucky position of having compute infrastructure with dedicated support in your department, college, or university, then this is an ideal option for teaching classes.
 You simply ask the system administrator for what you need, and they make it happen.
@@ -258,9 +260,8 @@ There are no limits on how much compute an individual can use, so it's possible 
 In other words, the only thing that's stopping them from doing something bad is their own awareness and respect for others.
 We mostly got around these issues by setting very clear expectations for behavior, with the understanding that this whole idea is based on trust.
 Even so, a student unintentionally left a large machine running for several weeks.
-We weren't monitoring as diligently as we should have, so this used up a significant portion of our 100,000 service units.
-Fortunately, we still had plenty to get through the course.
-Finally, our allocation on Jetstream2 requires annual renewal, which makes us hesitate to rely on it as a long term solution for teaching this class.
+We weren't monitoring as diligently as we should have, and this used up a significant portion of our 100,000 service units, but we still had plenty to get through the course.
+Finally, our allocation on Jetstream2 requires annual renewal, which makes us hesitate to rely on it as a long term solution for teaching Stat 129.
 We expect they would renew every year, but there's no guarantee.
 
 
@@ -298,12 +299,13 @@ For example, RStudio, Anaconda, and Snowflake offer cloud services that are esse
 \section{Future Steps}
 
 If it was easier to set up and run a server, then we believe that more instructors would be interested in teaching this kind of class.
-For a lone instructor with no support, the barriers to entry are significant.
+For a lone instructor with a heavy teaching load and no support, the barriers to entry are significant.
 We would welcome a solution that provides this capability publicly.
 It must have the following features:
 \begin{enumerate}
 \item \textbf{command line access} If this is present, then it should be possible to install and use all manner of command line software, including R, Python, and SQL.
-\item \textbf{100 GB data storage} 
+\item \textbf{100 GB shared data storage} It should be easy to share the same data with every student.
+    1 TB would be better.
 \item \textbf{free or low cost} Free for students is ideal, of course.
     If that's not possible, then the cost over the semester should not exceed that of a reasonably priced textbook.
 \end{enumerate}
@@ -311,6 +313,7 @@ Based on our observations above, there are several other features that would be 
 
 \begin{enumerate}
 \item \textbf{longevity} It's much easier for instructors to invest in a particular solution if they can be sure that it will be around in 5 years.
+\item \textbf{load balancing} Current cloud solutions don't do a great job.
 \end{enumerate}
 
 \bibliographystyle{plain}
