@@ -101,17 +101,35 @@ Our goal with embracing the shell is to move students beyond the initial unfamil
 To access the large data sets and complete the assignments, quizzes, and exams, the students must login to the class server through \texttt{ssh}.
 
 We teach the classic shell bash, because it has proven to be a durable technology.
-If one hopes to do anything with more advanced tools such as larger compute clusters or frameworks such Hadoop, then a foundational knowledge of bash is essential.
-TODO: cite
+Multiple alumni of Stat 129 have reported back that it was the command line skills that led directly to them getting a variety of jobs.
 In general, students in technology oriented class such as Stat 129 benefit when instructors focus on ubiquitous and proven core technologies, rather than on what happens to be popular this year, because then they come away with skills that they can apply in many different contexts.
+If one hopes to do anything with more advanced tools such as larger compute clusters or frameworks such Hadoop MapReduce \cite{white2012hadoop}, then a foundational knowledge of bash is essential.
 
-%Thus we need an actual remote server that students can log in to so that they can perform the tasks.
+A single server hits the sweet spot for Stat 129; clusters are less ideal, because of the overhead and the abstraction they introduce.
+We've used a cluster with SLURM \cite{yoo2003slurm} job queueing software, common in high performance computing (HPC), for teaching Stat 141C (Big Data and High Performance Computing) at UC Davis in 2019.
+One topic that we cover in Stat 129 is reading the output of \texttt{top/htop} to identify a bottleneck in a shell pipeline that's streaming hundreds of GB of data.
+It's possible to do this with job queueing software where the job is running on a worker node, but it takes either more advanced knowledge, or something specific to that system.
+Whenever possible we try to teach the tools that are the most common and widely applicable, to better serve the students in their future careers.
+
 
 \section{Server Options}
 
 % Introduce 
 
 Which server option is best depends on the goals of the course, the level of institutional support, the number of students enrolled, the background of the students, and the background of the instructor.
+The overarching goal of Stat 129 is to do real things on real data sets, using professional software.
+Students use the server for every assignment and assessment for 15 weeks, so it makes sense to invest some time teaching them skills and tools with steeper learning curves, such as terminal based text editors.
+If a different class only used a server for two weeks of the semester to examine one particular data set, then it probably makes more sense to use a more approachable web browser based graphical user interface to the server such as Jupyter Notebooks \cite{kluyver2016jupyter}, which will inform the best choice of server options.
+
+Institutional support for teaching a class like Stat 129 varies widely.
+For us, there were no servers available to use for teaching at the department, college, or university level; however, the college did provide us with startup funds, which funded the experimentation that led to this paper.
+The Mathematics and Statistics Department at Sacramento State University plans to offer Stat 129 once a year for the foreseeable future, so we need a long term solution for a server.
+In a particular year we'll have one instructor, 15-30 students, and no staff, teaching assistants, or other support.
+We don't need a large machine for any purpose other than teaching.
+
+We have some professional background in programming, and our server administration experience has proven particularly useful for teaching Stat 129.
+What follows are the server options, ordered by our personal preference.
+There's no one size fits all solution, and what's best for you may well differ from our preferences.
 
 %The problem is that our job doesn't provide such a server.
 %If we want students to have this experience, then it is on me to find and manage such a server.
@@ -119,42 +137,25 @@ Which server option is best depends on the goals of the course, the level of ins
 %If so, read on.
 
 
+%What do you actually need to teach a class like this?
 
-Here's our background.
-I'm an Assistant Professor in the Mathematics and Statistics Department at CSU Sacramento, a regional university.
-We have some professional background with computers and programming.
-In particular, We've done some server administration, and that experience has definitely proven useful when teaching this class.
-
-
-Our department plans to offer Stat 129 once a year for the foreseeable future, so we need a long term solution for a server.
-In a particular year we'll have one instructor, 15-25 students, and no TA's or other support.
-We don't need a large machine for any purpose other than teaching.
-Please keep in mind the context I'm coming from when making the following recommendations, as they may not be appropriate for your situation.
-
-What follows are the server options, ordered by our personal preference.
-
-What do you actually need to teach a class like this?
-
-\subsection{Dedicated Support and Infrastructure}
+\subsection{Dedicated Support}
 
 If you're in the lucky position of having compute infrastructure with dedicated support in your department, college, or university, then this is an ideal option for teaching classes.
-You simply ask the system administrator for what you need, and they'll make it happen.
-The only hard part is knowing what it is you need.
+You simply ask the system administrator for what you need, and they make it happen.
+The challenge for the instructor is determining what you need!
 
-While teaching at UC Davis, the system administrator's helped me with the following tasks related to the class:
+While teaching at UC Davis, the system administrator helped us with the following tasks related to the class:
 \begin{itemize}
+\item Selecting the right servers to offer to the class.
 \item Creating user accounts from a student roster.
 \item Installing R, Python, along with various packages and libraries of software.
 \item Setting up and configuring an open source database (Postgres) for use by students.
+\item Troubleshooting connectivity and user account issues.
 \end{itemize}
-
-A systems administrator can do many other things, of course.
-Just ask!
-
-We've used more traditional supercomputers with job queueing software (SLURM) for teaching this class, but we feel that this is not ideal for the class, because of the amount of overhead, and the abstraction.
-For example, one topic that we cover is reading the output of \texttt{top/htop} to identify a bottleneck in a shell pipeline that's streaming hundreds of GB of data.
-It's possible to do this with job queueing software where the job is running on a worker node, but it takes either more advanced knowledge, or something specific to that system.
-Whenever possible we try to teach the tools that are the most common and widely applicable, to better serve the students in their future careers.
+Of these tasks, setting up the Postgres database took the most time and expertise, and we were grateful to have the support.
+% A system administrator can do many other things, of course.
+% Just ask!
 
 We feel that timely support is much more important the physical compute power, especially if the class is small.
 
@@ -189,6 +190,9 @@ We simply asked them for a hostname, and they took care of it.
 Our students need to be either on campus or at home on the campus VPN (Virtual Private Network), and they can login via ssh, for example: \texttt{ssh fitzgerald@nsm-stats.csus.ed}.
 We would recommend against setting up a physical server at your home, because this step could be tough depending on your internet provider, and there's no reason you should pay for the electricity instead of campus.
 
+It's relatively easy and direct to automate certain grading tasks on a physical server.
+For example...
+
 The physical server feels out of date, and lacks the cachet of being `the cloud'.
 Despite that, it provides a legitimate and simple way to get students using a remote server.
 From a student's perspective, there's no difference between \texttt{ssh} to this machine, or to a virtual machine that you own that's running on the cloud.
@@ -205,6 +209,7 @@ The second option allows students to focus more on the data analysis rather than
 You, the instructor, create a virtual machine that's sufficiently large to accommadate all of the students simultaneously.
 You can either give the students SSH access, or allow them to access through a web interface, for example with JupyterHub or RStudio Cloud.
 The downside here is that you need to pay for a large enough machine all the time, or else manually load balance by switching to smaller or larger machines as the demand changes.
+
 
 
 
