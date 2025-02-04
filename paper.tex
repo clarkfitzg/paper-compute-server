@@ -126,8 +126,8 @@ For us, there were no servers available to use for teaching at the department, c
 The Mathematics and Statistics Department at Sacramento State University plans to offer Stat 129 once a year for the foreseeable future, so we need a long term solution for a server.
 In a particular year we'll have one instructor, 15-30 students, and no staff, teaching assistants, or other support.
 We don't need a large machine for any purpose other than teaching.
+We have some professional background in programming, and our server administration experience has proven particularly useful.
 
-We have some professional background in programming, and our server administration experience has proven particularly useful for teaching Stat 129.
 What follows are the server options, ordered by our personal preference.
 There's no one size fits all solution, and what's best for you may well differ from our preferences.
 
@@ -143,7 +143,7 @@ There's no one size fits all solution, and what's best for you may well differ f
 
 If you're in the lucky position of having compute infrastructure with dedicated support in your department, college, or university, then this is an ideal option for teaching classes.
 You simply ask the system administrator for what you need, and they make it happen.
-The challenge for the instructor is determining what you need!
+The challenge for you as the instructor is determining what you need!
 
 While teaching at UC Davis, the system administrator helped us with the following tasks related to the class:
 \begin{itemize}
@@ -154,105 +154,117 @@ While teaching at UC Davis, the system administrator helped us with the followin
 \item Troubleshooting connectivity and user account issues.
 \end{itemize}
 Of these tasks, setting up the Postgres database took the most time and expertise, and we were grateful to have the support.
-% A system administrator can do many other things, of course.
+A system administrator can do many other things, of course.
+For teaching, timely, helpful support is much more important than physical compute power.
 % Just ask!
 
-We feel that timely support is much more important the physical compute power, especially if the class is small.
 
 \subsection{Personal Physical Server}
 
-A personal physical server is either in a rack in a server room somewhere on campus, or else a large box in an office.
-If it's in a server rack then you can generally get a machine with higer specs, better internet connectivity, and it's not cluttering up your space.
-If the machine is in your office, then when you launch a big job the machine will heat up and the cooling fan will turn on, which provides a very real connection to the amount of data being processed for the students in office hours, which can be fun.
+A personal physical server is essentially the same as a powerful desktop machine, except that you can access it remotely, and it doesn't need to have a monitor.
+The machine itself might be in a rack in a server room on campus, or in someone's office.
+If it's in a server rack then you can generally get a machine with more CPU's and memory, better internet connectivity, and it's not cluttering up your space.
+If the machine is in your office, then when you launch a big job, the machine will heat up and the cooling fan will turn on, which provides a very real connection to the amount of data being processed for the students in office hours, which is fun.
+A physical machine in our office is our current solution, after having explored and experienced the others described in this article.
+We find that it is the most pragmatic long term solution, requiring the least effort on our part.
 
-This is our current solution, after having explored and experienced the others described in this article.
-We find that it is the most pragmatic solution, requiring the least effort on our part.
-
-The major advantages of this approach are cost and simplicity.
-Regarding cost, We've found it easier to fund a one time purchase of a few thousand dollars compared to finding a sponsor who will commit to the ongoing variable subscription fees of the cloud services, even if the total cost would be lower for the cloud subscription.
+The major advantages of the personal physical server are cost and simplicity.
+Regarding cost, we've found it easier to fund a one time purchase of a few thousand dollars compared to finding a sponsor who will commit to the ongoing variable subscription fees of the cloud services, even if the total cost would be lower for the cloud subscription.
 It's simple because you can set it up one time, and then use the same machine for several years.
-We myself am the systems administrator, so we can install whatever we want, whenever we want.
 We didn't need any specialized knowledge beyond the basics.
-We don't have to worry about any creating and maintaining cloud images.
-The downside of this is that we am our own support.
-If we spill coffee on your machine, then I'm in trouble.
-If something goes wrong, I'm the only one who's going to fix it.
+We completely own and administrator the machine, so we can install whatever we want, whenever we want.
+It's relatively easy and direct to automate certain grading tasks, for example, one can look at \texttt{history} to see every command a student typed during a quiz.
 
-For a class of 15 students, we found that a single 32 core CPU with 128 GB of memory was just sufficient for students to experience the class assignments in the way we intended.
+The disadvantage of a single physical machine is that if there is a problem, then it affects the entire class, and we are our own support.
+Students have made mistakes and filled up all the disk space, and we needed to diagnose and fix the issue on our own.
+Pedagogically, this mistake followed by the unusable server highlights the importance of not creating unnecessary copies when working with large amounts of data, and it makes students more aware of how much data they're saving.
+The fix is straightforward: just delete the big files that the students accidentally made copies of.
+A more proactive solution to this common problem is to impose a quota on disk usage.
+We're taking a risk that the server could fail in a more serious way, but it's a calculated risk.
+
+%when the students make a mistake and fill up all the disk space, it does not affect anyone or anything outside of the class.
+%If we spill coffee on the machine, or it fails 
+%Nothing else essential is running on the machine, so 
+%If something goes wrong, I'm the only one who's going to fix it.
+%We don't have to worry about any creating and maintaining cloud images.
+
+The server doesn't need to be particularly powerful or expensive.
+For a class of 15 students, we found that a single 32 core CPU, a GPU, and 128 GB of memory was just sufficient for students to experience the class assignments in the way we intended.
+This machine cost around \$3,000 when purchased in 2022.
 We always recommend that students do their homework well before the due date, because if a handful of users are simultaneously trying to use parallel jobs with all available CPU cores, then they won't see the speedup they are expecting.
-In practice it happened occassionaly that students who waited until the last hour to do an assignment didn't get to see their final result, but they weren't surprised, because we had warned them many times and they knew to expect this.
-We've used a 16 core CPU in previous classes, and found that it was not sufficient.
+In practice it happened occasionaly that students who waited until the last hour to do an assignment didn't get to see their final result, but they weren't surprised, because we had warned them many times and they knew to expect this.
+We've used a 16 core CPU machine in previous semesters, and found that it was not sufficient for 15 students.
 With more students, we believe that students would feel crowded on the server.
 
 One technical detail to be aware of is that you must provide remote access so that others can log on to the machine.
-Campus IT handled this for me.
-We simply asked them for a hostname, and they took care of it.
-Our students need to be either on campus or at home on the campus VPN (Virtual Private Network), and they can login via ssh, for example: \texttt{ssh fitzgerald@nsm-stats.csus.ed}.
-We would recommend against setting up a physical server at your home, because this step could be tough depending on your internet provider, and there's no reason you should pay for the electricity instead of campus.
-
-It's relatively easy and direct to automate certain grading tasks on a physical server.
-For example...
+Campus IT handled this by providing a DNS hostname.
+Our students need to be either on campus or at home on the campus VPN (Virtual Private Network), and they can login via ssh, for example: \texttt{ssh fitzgerald@nsm-stats.csus.edu}.
+We recommend against setting up a physical server at your home, because providing reliable remote access could be tough depending on your internet provider, and there's no reason you should pay for the electricity instead of campus.
 
 The physical server feels out of date, and lacks the cachet of being `the cloud'.
 Despite that, it provides a legitimate and simple way to get students using a remote server.
 From a student's perspective, there's no difference between \texttt{ssh} to this machine, or to a virtual machine that you own that's running on the cloud.
 
-With either cloud option, you have two ways to provide students with access to a server: they can create their own virtual machines, or they can use a machine that you provide.
+\subsection{Cloud}
+
+In Stat 129, students process data through a virtual machine (VM), a logical rather than a physical computer.
+We've experimented with two ways of providing students with cloud access: administrative accounts on the cloud, or local user accounts on a VM.
 We've used both of these options, and they both have a place, depending on the goals of the class.
 
-The first option provides more true `cloud' experience.
-The students can have their own account with the cloud provider, they create their own virtual machines which they have complete control over, and they delete them when they are done.
+Administrative cloud accounts provide students with a richer cloud experience, as they create their own virtual machines which they have complete control over.
 They are the administrators to these machines with \texttt{sudo} access, so they can do anything they wish, and any mistakes they make won't affect anyone else.
-This would be a good option if the course is designed to teach them more about infrastructure, for example, you could allow them to implement their own web applications.
+Load balancing has the potential to work better in this scenario, as students can create machines that are as large as they like, and delete them when they are done.
+This would be a good option if the course is designed to teach them more about infrastructure, for example, how to implement a full stack web application.
+This rich experience does come with some additional complexity and responsibility, for example, students need to load and save their results as they create and delete machines.
 
-The second option allows students to focus more on the data analysis rather than the infrastructure.
-You, the instructor, create a virtual machine that's sufficiently large to accommadate all of the students simultaneously.
-You can either give the students SSH access, or allow them to access through a web interface, for example with JupyterHub or RStudio Cloud.
+Local user accounts on a single VM allow students to focus more on the data analysis rather than the cloud ideas and infrastructure.
+In this scenario the instructor creates a VM that's large enough to accommodate all of the students simultaneously, and students access through SSH or a web interface.
 The downside here is that you need to pay for a large enough machine all the time, or else manually load balance by switching to smaller or larger machines as the demand changes.
+If we were goint
+
+Note that providing students with administrative cloud accounts is not mutually exclusive from simpler single VM accounts.
+For example, we have kept class VM's running and had all students log on to the same VM earlier in the semester, and then progress to setting up their own VM's later in the semester.
+Now we turn our attention to cloud provider options.
 
 
+% TODO: mention RStudio somewhere
 
+\subsubsection{Public Cloud}
 
-\subsection{Public Cloud}
+We have had an excellent experience teaching Stat 129 using the NSF funded cloud provider, Jetstream2 \cite{hancock2021jetstream2}.
+In this model, the instructor applies for an allocation, the reviewers award a certain number of compute hours, and the instructor sets up the accounts on the machines.
+We applied, were approved, and had everything set up in less than a week.
+In fact, the reviewer awarded 
 
-We have had generally an excellent experience using the publicly funded cloud, Jetstream2.
-The two big benefits of this model are that it's free for the students, and it's a relatively simple way for the students to get real cloud experience..
-In this model, you apply for an allocation, Jetstream reviews and awards you a certain number of compute hours, you set up the accounts.
-To do the work, each student creates their own virtual machine and uses it to do the data analysis.
-We applied, was approved, and had everything set up in less than a week.
-
-The website \url{https://jetstream-cloud.org/index.html} states:
-TODO: cite
-
+The Jetstream2 website\footnote{\url{https://jetstream-cloud.org/index.html}} states:
 \begin{quote}
 Jetstream2 makes cutting-edge high-performance computing and software easy to use for research regardless of your project’s scale, even if you have limited experience with supercomputing systems.
 
 Cloud-based and on-demand, the Jetstream2 environment also includes discipline-specific apps. You can even create virtual machines that look and feel like your lab workstation or home machine—but with thousands of times the computing power.
 \end{quote}
 
-The Jetstream2 user interface and options are far simpler than commercial cloud providers.
+The benefits of Jetstream2 are the free cost for students, the simplicity compared to commercial cloud providers, and the ability to connect seamlessly to large data sets.
+Thanks to NSF funding, our students, many of whom are low income, received accounts without needing to provide a credit card.
+The user interface and options are much simpler than commercial cloud providers, and they cater directly to the academic wishing to analyze large data sets through Manila Filesystems as a service.
+We followed the Jetstream2 documentation and mounted a 1 TB Manila file share to the VMs, which allowed students to simultaneously access and analyze shared data as if it was local to their machine \cite{manila}.
+In our experience, Jetstream2 has lived up to its claims of making cloud computing easy and accessible.
 
-Two disadvantages of Jetstream2 for teaching are the security model, and the lack of safeguards.
-Jetstream2 seems to be focused on allowing individual researchers and small groups, and enabling them to do projects with more compute than they would otherwise be able to.
-What we did, teaching a class where every student gets access, is certainly not the primary use case.
+The disadvantages of Jetstream2 for teaching college classes are the security model, the lack of safeguards, and the annual renewals.
+Jetstream2 caters to the needs of individual researchers and small research groups, and they support this primary use case very well.
+In contrast, teaching a semester long undergraduate class is certainly not Jetstream2's primary use case.
 When you're awarded an allocation, every user gets complete access to every part of the account.
-Students have administrative access to everything the instructor creates, and every other students machine.
+Students have administrative access to everything the instructor creates, and every other student's machine.
 There are no limits on how much compute an individual can use, so it's possible for one user to use up all the credits.
 In other words, the only thing that's stopping them from doing something bad is their own awareness and respect for others.
 We mostly got around these issues by setting very clear expectations for behavior, with the understanding that this whole idea is based on trust.
 Even so, a student unintentionally left a large machine running for several weeks.
-We wasn't dilligently monitoring, so this used up around 25\% of our compute credits.
+We weren't monitoring as diligently as we should have, so this used up a significant portion of our 100,000 service units.
 Fortunately, we still had plenty to get through the course.
+Finally, our allocation on Jetstream2 requires annual renewal, which makes us hesitate to rely on it as a long term solution for teaching this class.
+We expect they would renew every year, but there's no guarantee.
 
-A technical detail you'll have to handle is how students will access the large data sets.
-Jetstream2 provides data storage through the Manila Filesystems as a service, and this worked well for sharing large data sets across several different running instances.
 
-Another disadvantage for our use case is the uncertainty of how many years I'll be able to rely on it to continue offering the course, as we need to renew it annually.
-Jetstream2 is not designed as a long term solution for institutions offering the same course year after year. 
-We expect they would renew every year, but there's no guarantee of this happening.
-If they choose not to renew, then I'll need to look for another solution.
-
-\subsection{Commercial Cloud}
+\subsubsection{Commercial Cloud}
 
 Several companies offer commercial cloud services.
 We focused mainly on Amazon Web Services (AWS), the biggest and most popular vendor, so that our students can get marketable experience that they can then put on their resume.
