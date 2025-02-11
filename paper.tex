@@ -209,7 +209,9 @@ From a student's perspective, there's no difference between \texttt{ssh} to this
 
 \subsection{Cloud}
 
-In Stat 129, students process data through a virtual machine (VM), a logical rather than a physical computer.
+The cloud offers the most flexibility of all the server options.
+Indeed, all the different ways one could potentially use and teach cloud services can be overwhelming.
+In Stat 129, students process data by logging into a virtual machine (VM), a logical rather than a physical computer.
 We've experimented with two ways of providing students with cloud access: administrative accounts on the cloud, or local user accounts on a VM.
 We've used both of these options, and they both have a place, depending on the goals of the class.
 
@@ -222,10 +224,10 @@ This rich experience does come with some additional complexity and responsibilit
 Local user accounts on a single VM allow students to focus more on the data analysis rather than the cloud ideas and infrastructure.
 In this scenario the instructor creates a VM that's large enough to accommodate all of the students simultaneously, and students access through SSH or a web interface.
 The downside here is that you need to pay for a large enough machine all the time, or else manually load balance by switching to smaller or larger machines as the demand changes.
-If we were goint
+%If we were goint
 
-Note that providing students with administrative cloud accounts is not mutually exclusive from simpler single VM accounts.
-For example, we have kept class VM's running and had all students log on to the same VM earlier in the semester, and then progress to setting up their own VM's later in the semester.
+Note that you can combine the simpler single VM accounts together with the richer administrative accounts.
+For example, we have started the semester with a single VM large enough for the class, which students all students log in to and use for simple assignments and in class activities, and then later in the semester students progress to setting up their own VM's.
 Now we turn our attention to cloud provider options.
 
 
@@ -253,84 +255,74 @@ We followed the Jetstream2 documentation and mounted a 1 TB Manila file share to
 In our experience, Jetstream2 has lived up to its claims of making cloud computing easy and accessible.
 
 The disadvantages of Jetstream2 for teaching college classes are the security model, the lack of safeguards, and the annual renewals.
-Jetstream2 caters to the needs of individual researchers and small research groups, and they support this primary use case very well.
-In contrast, teaching a semester long undergraduate class is certainly not Jetstream2's primary use case.
-When you're awarded an allocation, every user gets complete access to every part of the account.
-Students have administrative access to everything the instructor creates, and every other student's machine.
-There are no limits on how much compute an individual can use, so it's possible for one user to use up all the credits.
+Jetstream2 prioritizes the needs of individual researchers and small research groups, and they support this primary use case very well.
+Jetstream2 is not designed primarily for teaching a semester long undergraduate class with 30 students.
+When the reviewers award the instructor an allocation, every user gets complete access to every part of the account on the allocation.
+If you give students user accounts so that they can have the administrative experience of creating their own VM's, then they will have administrative access to everything the instructor creates, and to every other student's machine.
+There are no limits on how much compute a particular user can use, so it's possible for one user to use up all the credits for the allocation.
 In other words, the only thing that's stopping them from doing something bad is their own awareness and respect for others.
 We mostly got around these issues by setting very clear expectations for behavior, with the understanding that this whole idea is based on trust.
 Even so, a student unintentionally left a large machine running for several weeks.
 We weren't monitoring as diligently as we should have, and this used up a significant portion of our 100,000 service units, but we still had plenty to get through the course.
-Finally, our allocation on Jetstream2 requires annual renewal, which makes us hesitate to rely on it as a long term solution for teaching Stat 129.
-We expect they would renew every year, but there's no guarantee.
+Finally, our allocation on Jetstream2 required annual renewal, which makes us hesitate to rely on it as a long term solution for teaching Stat 129.
+We expect the reviewers would renew every year if there is funding available, but there are no guarantees.
+This isn't an issue if someone is paying for commercial cloud services.
 
 
 \subsubsection{Commercial Cloud}
 
 Several companies offer commercial cloud services.
-We focused mainly on Amazon Web Services (AWS), the biggest and most popular vendor, so that our students can get marketable experience that they can then put on their resume.
+We focused mainly on Amazon Web Services (AWS), the biggest and most popular vendor, to provide our students with marketable experience that they can then put on their resume.
 Our favorite feature of AWS is the direct access to Amazon's high quality open data sets through the \texttt{aws s3} command line tools.
 From an instructor's perspective, this eliminates the step of downloading the data and making it available to students.
 
-The financial aspect is not ideal for students.
+A sustainable funding model for teaching a class like Stat 129 is to make students pay for commercial cloud services, and this doesn't need to be expensive.
+In Spring 2022, we found that students on AWS can get a rich data processing experience for \$20 or less in one semester, which is less than a low cost textbook for a single course.
 These are commercial services, so a student must have a credit card and be prepared to pay for any compute time and storage that they use.
-In Spring 2022, we found that students on AWS can generally get the data processing experience for \$20 or less in one semester.
-If they make a mistake, say using an expensive service and forgetting to shut it off, then they can easily run up an expensive and unexpected bill that can be tough for a college student to cover.
-In the past, AWS offered an educational program with free credits for students.
-The big selling point for me was that students didn't need to even provide a credit card.
-We used this program, but they discontinued it, leaving me searching for other options.
-For a busy faculty member, this is a waste.
+However, if they make a mistake, say using a powerful VM and forgetting to shut it off, then they can easily run up an expensive and unexpected bill that can be tough for a college student to cover.
+In the past, AWS offered an educational program with free credits for students, which didn't even require a credit card.
+We used this program, but they discontinued it, which left us looking for other free options.
 
-Complexity and vendor specificity are also problems when teaching with cloud services.
-Amazon's EC2 (cloud compute server) ``provides a wide selection of over 750 instance types optimized to fit different use cases.''
-There are also hundreds of different services and several world regions to choose from.
-The services often have company specific names, which makes it difficult for an instructor to understand what they are.
+Complexity and vendor specificity are problems when teaching with cloud services.
+Amazon's EC2 (cloud compute server) allows students to create their own VM's, and it ``provides a wide selection of over 750 instance types optimized to fit different use cases.''\cite{aws-ec2}
+There are also hundreds of different services and many world regions to choose from.
+This is an overwhelming amount of choice for a student or even an instructor, and the available options change regularly.
+Furthermore, the services often have company specific names, which makes it difficult for an instructor to understand what they are.
 Indeed, the main purpose of the `AWS Cloud Practitioner' qualification seems to be to understand all of these proprietary names and services.
-This vendor specific education is all well and good if Amazon is providing the training, however, at a public institution our goal is to focus on the overarching concepts and portable technologies that a student can take and apply anywhere, regardless of the specific vendor.
+As faculty at a public institution, our goal is to focus on the overarching concepts and portable technologies that a student can take and apply anywhere, regardless of the specific vendor.
 
-While we feel that the commercial cloud services aren't currently the best choice for me, they might be the best choice for you.
-If you already have experience with a particular cloud provider, or you wish to build that experience, then go for it.
+While we feel that the commercial cloud services aren't currently the best choice for teaching Stat 129 at CSU Sacramento, they might be the best choice for you.
+If you already have experience with a particular cloud provider, or you wish to build that experience from the ground up, then this is an opportunity. 
 If your institution has some connection with a cloud provider, then it may be mutually beneficial to leverage those connections.
-For example, the company may provide cloud services for free in exchange for the ability to recruit graduates into that company.
+For example, the company may provide cloud services for free in exchange for the access to recruit graduates into that company.
+If the goal of your course is to focus more on a specific technology such as R, Python, or SQL then you should consider popular vendors such as Posit Cloud (formerly RStudio), Anaconda Cloud, or Snowflake.
+These vendors use commercial cloud services as a foundation, abstract away many of the complicated details of server administration, and provide a familiar web based user interface.
 
-We do believe that viable options can be built using commercial cloud services.
-For example, RStudio, Anaconda, and Snowflake offer cloud services that are essentially a higher level abstraction and user interface catered towards the data science R, Python, or SQL user.
+None of the available cloud services that we've explored or mentioned are ideal for teaching Stat 129.
+We conclude by describing what emph{would} be ideal, based on our experience.
 
 \section{Future Steps}
 
-If it was easier to set up and run a server, then we believe that more instructors would be interested in teaching this kind of class.
+If it was easier to set up and run a server, then we believe that more instructors would be interested in teaching courses like Stat 129.
 For a lone instructor with a heavy teaching load and no support, the barriers to entry are significant.
 We would welcome a solution that provides this capability publicly.
-It must have the following features:
+It should have the following features:
 \begin{enumerate}
-\item \textbf{command line access} If this is present, then it should be possible to install and use all manner of command line software, including R, Python, and SQL.
+\item \textbf{shell access} Students should be able 
 \item \textbf{100 GB shared data storage} It should be easy to share the same data with every student.
     1 TB would be better.
 \item \textbf{free or low cost} Free for students is ideal, of course.
     If that's not possible, then the cost over the semester should not exceed that of a reasonably priced textbook.
+\item \textbf{long term sustainability} It's much easier for instructors to invest in a particular solution if they can be sure that it will be around in 5 years.
 \end{enumerate}
 Based on our observations above, there are several other features that would be nice to have, and we list some of them here.
 
 \begin{enumerate}
-\item \textbf{longevity} It's much easier for instructors to invest in a particular solution if they can be sure that it will be around in 5 years.
+\item \textbf{administrative access for instructors} If this is present, then it should be possible to install and use all manner of command line software, including R, Python, and SQL.
 \item \textbf{load balancing} Current cloud solutions don't do a great job.
 \end{enumerate}
 
 \bibliographystyle{plain}
 \bibliography{references}
-
-\section{Scratch}
-
-We've taught an upper division statistics ``Big Data'' course at UC Davis and CSU Sacramento and have gained some perspective on what works well for this course.
-Our goals with the course are to get students comfortable with using remote machines and to do realistic analysis of data sets that don’t fit in memory, typically on the order of 100GB or so.
- 
-I’ve tried what feels like an excessive number of ways to run the server for the students to get the `server experience':
-Campus supported Linux cluster (SLURM)
-AWS EC2 - student accounts and Jupyter Notebooks
-Google colab
-NSF Jetstream cloud (Access)
-Physical server in the corner of our office (current solution!)
-
 
 \end{document}
