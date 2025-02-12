@@ -6,6 +6,8 @@
 \usepackage{setspace}
 \doublespacing
 
+\usepackage{graphicx}
+
 \usepackage[utf8]{inputenc}
 
 % for \url{}
@@ -27,8 +29,9 @@ These options include institutionally supported servers, personal physical serve
 We briefly describe the course, share our experience with each of these options including advantages and disadvantages, mention some technical considerations, and suggest when to choose which option.
 Looking to the future, we outline requirements for a broadly shared educational compute service that will allow more instructors to teach similar classes without the overhead of having to manage and administer their own server.
 
-\end{abstract}
+\emph{keywords: big data, cloud computing, data science, teaching}
 
+\end{abstract}
 
 % TODO: Context, definitions, goals of the course, benefits of such a course to students
 
@@ -54,6 +57,7 @@ Feedback from this data forward approach in general, and this class in particula
 In Stat 129 students ask real questions based on real data that resides on a real server, and for this reason several alumni have reported that this has been the single most practical and valuable class that they have taken in college.
 
 \subsection{Which Data?}
+\label{sec:data}
 
 %The term `Big Data' appears in the title for Stat 129; for this term to be more than a buzz word, we need to define it.
 % TODO: Could talk about how others use this term.
@@ -95,6 +99,7 @@ To properly analyze them we need to provide our students with a compute server.
 
 
 \subsection{Why a Server?}
+\label{sec:server}
 
 Students must access data and run code on remote servers for a class on `Big Data', because that's where big data is typically found: on remote servers.
 There is a qualitative difference between the experience of running code on a laptop with a monitor that's sitting in front of you, and on a machine that you never actually see, that you can only access through \texttt{ssh}, secure shell.
@@ -167,15 +172,22 @@ A personal physical server is essentially the same as a powerful desktop machine
 The machine itself might be in a rack in a server room on campus, or in someone's office.
 If it's in a server rack then you can generally get a machine with more CPU's and memory, better internet connectivity, and it's not cluttering up your space.
 If the machine is in your office, then when you launch a big job, the machine will heat up and the cooling fan will turn on, which provides a very real connection to the amount of data being processed for the students in office hours, which is fun.
-A physical machine in our office is our current solution, after having explored and experienced the others described in this article.
+Figure~\ref{fig:server} shows the physical machine in our office that is our current solution, after having explored and experienced the others described in this article.
 We find that it is the most pragmatic long term solution, requiring the least effort on our part.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{server}
+    \caption{A simple server under a desk works just fine for teaching.}
+    \label{fig:server}
+\end{figure}
 
 The major advantages of the personal physical server are cost and simplicity.
 Regarding cost, we've found it easier to fund a one time purchase of a few thousand dollars compared to finding a sponsor who will commit to the ongoing variable subscription fees of the cloud services, even if the total cost would be lower for the cloud subscription.
 It's simple because you can set it up one time, and then use the same machine for several years.
 We didn't need any specialized knowledge beyond the basics.
 We completely own and administrator the machine, so we can install whatever we want, whenever we want.
-It's relatively easy and direct to automate certain grading tasks, for example, one can look at \texttt{history} to see every command a student typed during a quiz.
+It's relatively easy and direct to automate certain grading tasks, for example, an instructor can use administrative privileges to look at \texttt{history} to see every command a student typed during a quiz.
 
 The disadvantage of a single physical machine is that if there is a problem, then it affects the entire class, and we are our own support.
 Students have made mistakes and filled up all the disk space, and we needed to diagnose and fix the issue on our own.
@@ -250,9 +262,16 @@ Cloud-based and on-demand, the Jetstream2 environment also includes discipline-s
 The benefits of Jetstream2 are the free cost for students, the simplicity compared to commercial cloud providers, and the ability to connect seamlessly to large data sets.
 Thanks to NSF funding, our students, many of whom are low income, received accounts without needing to provide a credit card.
 The user interface and options are much simpler than commercial cloud providers, and they cater directly to the academic wishing to analyze large data sets through Manila Filesystems as a service.
-TODO: screenshot of UI
+Figure~\ref{fig:jetstream} shows an example of the clean web user interface to create a new instance of a VM.
 We followed the Jetstream2 documentation and mounted a 1 TB Manila file share to the VMs, which allowed students to simultaneously access and analyze shared data as if it was local to their machine \cite{manila}.
 In our experience, Jetstream2 has lived up to its claims of making cloud computing easy and accessible.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{jetstream}
+    \caption{The Jetstream2 user interface is far simpler and easier to teach compared to commercial cloud providers.}
+    \label{fig:jetstream}
+\end{figure}
 
 The disadvantages of Jetstream2 for teaching college classes are the security model, the lack of safeguards, and the annual renewals.
 Jetstream2 prioritizes the needs of individual researchers and small research groups, and they support this primary use case very well.
@@ -270,6 +289,7 @@ This isn't an issue if someone is paying for commercial cloud services.
 
 
 \subsubsection{Commercial Cloud}
+\label{sec:comcloud}
 
 Several companies offer commercial cloud services.
 We focused mainly on Amazon Web Services (AWS), the biggest and most popular vendor, to provide our students with marketable experience that they can then put on their resume.
@@ -301,26 +321,49 @@ These vendors use commercial cloud services as a foundation, abstract away many 
 None of the available cloud services that we've explored or mentioned are ideal for teaching Stat 129.
 We conclude by describing what emph{would} be ideal, based on our experience.
 
-\section{Future Steps}
+\section{Moving Forward}
 
-If it was easier to set up and run a server, then we believe that more instructors would be interested in teaching courses like Stat 129.
+If it was easier to set up and run a server for teaching undergraduate data analysis classes like Stat 129, then we believe that more instructors would be interested in teaching these courses.
 For a lone instructor with a heavy teaching load and no support, the barriers to entry are significant.
-We would welcome a solution that provides this capability publicly.
+We would welcome a shared solution, cloud or otherwise, that provides this capability publicly to instructors simultaneously teaching similar courses at other institutions.
 It should have the following features:
 \begin{enumerate}
-\item \textbf{shell access} Students should be able 
-\item \textbf{100 GB shared data storage} It should be easy to share the same data with every student.
-    1 TB would be better.
+\item \textbf{100 GB shared data storage} It should be easy for an entire class to simultaneously read and share the same large data sets.
+    1 TB of storage would be better.
+\item \textbf{data science tools} Students should be able to use common data science programming technogies such as R, Python, and some form of SQL.
+    One way to provide this is to give the instructor administrative privileges to install software.
+    Web based clients using tools such as Jupyter Notebooks certainly broaden the appeal and potential users of the server, but they are not strictly necessary.
 \item \textbf{free or low cost} Free for students is ideal, of course.
-    If that's not possible, then the cost over the semester should not exceed that of a reasonably priced textbook.
-\item \textbf{long term sustainability} It's much easier for instructors to invest in a particular solution if they can be sure that it will be around in 5 years.
+    If free is not possible, then the cost over the semester should not exceed that of a reasonably priced textbook.
+\item \textbf{instructor support}
+    Instructors without a background in systems administration should be able to teach on the server, and receive some level of technical and community support.
+    This is perhaps the hardest requirement, because the best way to provide dedicated support is through paid staff.
+\item \textbf{long term sustainability} 
+    If instructors and institutions are going to invest in creating courses that rely on a server, then they need to have some assurance that the server will continue to exist.
+    A 1 year pilot program might be a useful start, but it's much more compelling to have a guarantee that a server will be available for the next 5 years.
+\item \textbf{minimal specificity}
+    It's ideal if students in a one semester data science class don't need to learn concepts specific to one particular system or vendor, as discussed in Sections~\ref{sec:server} and~\ref{sec:comcloud}.
+\item \textbf{novice user safeguards} It should not be possible for one student to delete or damage course infrastructure, either accidentally or on purpose.
+    Standard Linux user accounts without administrative privileges work fine.
+\item \textbf{parallel capability}
+    The parallel processing capabilities of the server should exceed those of a common laptop to provide a compelling reason to actually use the server.
+    In practice, if there are 10 CPU's available, then students can experience an order of magnitude speedup compared to a serial program, and this is enough to motivate the techniques in Stat 129.
+    An abundance of compute power is definitely not necessary if instructors follow the advice in Section~\ref{sec:data}.
+\item \textbf{shell access} Students should be able to interact with their computer using bash so that they can use data processing pipelines, scripts, and version control.
 \end{enumerate}
-Based on our observations above, there are several other features that would be nice to have, and we list some of them here.
 
-\begin{enumerate}
-\item \textbf{administrative access for instructors} If this is present, then it should be possible to install and use all manner of command line software, including R, Python, and SQL.
-\item \textbf{load balancing} Current cloud solutions don't do a great job.
-\end{enumerate}
+The above instructor level requirements imply other requirements at the system level, and these require serious thought.
+For example, if a shared solution is going to simultaneously support 20 instructors teaching 400 students, then load balancing is a real concern.
+We leave the system level requirements to the professionals.
+
+Fostering a culture of support, mentorship, and growth for teaching unfamiliar but valuable data analysis technologies is more important than the logistics of setting up a server.
+Academia as a whole, and mathematics and statistics department in particular, need to value programming skills and find ways to support instructors who may be teaching new and unfamiliar topics.
+
+Large data sets are here to stay, and we serve our our statistics students well by teaching them how to actually work with large data.
+It's quite uncommon to see a course designed around the student experience on a server, particularly in a mathematics and statistics department.
+We hope that in the future compute servers become to a statistics program somewhat like physical laboratory space is to a chemistry program: a necessity.
+
+%We hope to see more courses like Stat 129 are offered in the future.
 
 \bibliographystyle{plain}
 \bibliography{references}
