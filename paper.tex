@@ -3,8 +3,8 @@
 \usepackage{geometry}
 %\geometry{margin=1in}
 
-\usepackage{setspace}
-\doublespacing
+%\usepackage{setspace}
+%\doublespacing
 
 \usepackage{graphicx}
 
@@ -28,6 +28,7 @@ These options include institutionally supported servers, personal physical serve
 We briefly describe the course, share our experience with each of these options, including advantages and disadvantages, mention some technical considerations, and suggest when to choose which option.
 Looking to the future, we outline requirements for a broadly shared educational compute service that will allow more instructors to teach similar classes without the overhead of having managing and administering their own server.
 
+\vspace{0.5in}
 keywords: big data, cloud computing, data science education, programming
 
 \end{abstract}
@@ -73,15 +74,15 @@ We assign data analysis tasks that typically take 1 to 10 minutes if done in ser
 %Everything that we do in the course is based on working with a legitimate, unwieldy, data set.
 When teaching Stat 129, we look for data sets that satisfy the following criteria.
 \begin{enumerate}
-\item \textbf{Size} The files should be large enough to motivate the computational techniques we're learning, but no larger, as described above.
-\item \textbf{Publicly Available} The data should be readily available for legal public download.
+\item \textbf{size} The files should be large enough to motivate the computational techniques we're learning, but no larger, as described above.
+\item \textbf{publicly available} The data should be readily available for legal public download.
 	Special permissions, non disclosure agreements, and licensing all take time away from teaching.
-\item \textbf{Format} 
+\item \textbf{format} 
     The data storage format should be a common one that students will encounter in data science work, so that students can directly apply what they learn in class.
     Each semester of Stat 129, we work with at least three data sets: a plain text tabular format such as CSV, a nested format such as XML or JSON, and a SQL database.
     Typically the data will be compressed, with one data set stored across multiple files.
 	Avoid proprietary, novel, or highly specialized data formats.
-\item \textbf{Background Knowledge}
+\item \textbf{background knowledge}
     A college student should be able to understand what the data actually represents in a single class period.
     For example, weather data such as Global Historical Climatology Network-Daily Database \cite{menne2012overview} works great, as each row represents a weather observation for a particular date and location.
 \end{enumerate}
@@ -273,8 +274,8 @@ In our experience, Jetstream2 has lived up to its claims of making cloud computi
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{jetstream}
-    \caption{This screenshot shows how to create a new instance of a virtual machine.
-The Jetstream2 user interface is far simpler and easier to teach compared to commercial cloud providers.}
+    \caption{This screenshot shows how to create a new instance of a virtual machine using Jetstream2.
+This user interface is far simpler and easier to teach compared to commercial cloud providers.}
     \label{fig:jetstream}
 \end{figure}
 
@@ -331,7 +332,7 @@ We conclude by describing what \emph{would} be ideal, based on our experience.
 If it was easier to set up and run a server for teaching undergraduate data analysis classes like Stat 129, then we believe that more instructors would be interested in teaching these courses.
 For a lone instructor with a heavy teaching load and no support, the barriers to entry are significant.
 We would welcome a shared solution, cloud or otherwise, that provides this capability publicly to many instructors simultaneously teaching similar courses at other institutions.
-It should have the following features:
+It should have the following features (listed alphabetically):
 \begin{enumerate}
 \item \textbf{data science tools} Students should be able to use common data science programming technogies such as R, Python, and some form of SQL.
     %One way to provide this is to give the instructor administrative privileges to install software.
