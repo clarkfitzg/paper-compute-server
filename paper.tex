@@ -52,16 +52,20 @@ Looking to the future, we outline requirements for a broadly shared educational 
 
 \section{Introduction}
 
-Imagine yourself in the shoes of a student who has just graduated college with an undergraduate degree in statistics, and started their first job working with data.
-The new manager gives them a challenge: ``Here are your login credentials for our cloud provider services. Here's 1 TB of data stored in XML that nobody has yet had time to look at. Familiarize yourself with it and find us some insights.''
-This is certainly a tall order, but the graduate who has the skills to even \emph{begin} such a task is valuable and rare indeed.
+Imagine yourself as a student who has just graduated college with an undergraduate degree in applied math or statistics, and started their first job working with data.
+The new manager gives them a challenge: ``Here are your login credentials for our cloud provider services. Here's a few hundred gigabytes of XML data that nobody has yet had time to look at. Familiarize yourself with it and find us some insights.''
+This is certainly a tall order, but the graduate who has the ability to even \emph{begin} such a task is valuable and rare indeed.
+Success requires technical computing skills, sound statistical reasoning, and an ability to `think with data'.
 
-Big Data: large, unwieldy  
+We designed and taught a class whose implicit goal is to prepare students for the scenario described above, and this paper contains some of the key insights and experience we've acquired along the way.
+Section~\ref{sec:stat129} describes the class, including what kind of data suits our pedagogical purpose (Section~\ref{sec:data}) and why we need a compute server (Section~\ref{sec:server}).
+Section~\ref{sec:serveropt} provides an overview of the role of the server in our class, and discusses the two physical server options: institutionally supported and personal.
+Section~\ref{sec:cloud} covers cloud server options, including publicly funded and commercial.
+Section~\ref{sec:conclusion} concludes with our `wish list' for an ideal shared educational compute service that will allow many instructors to simultaneously teach similar classes without the overhead of administering their own server.
 
-%Could a recetngraduate from your program even begin this task?
 
-
-\subsection{The class: Stat 129}
+\section{The class: Stat 129}
+\ref{sec:stat129}
 
 Stat 129, `Analyzing and Processing Big Data', is an upper division elective course offered by the Mathematics and Statistics Department at CSU Sacramento, and is required for students pursuing a bachelor's degree in Statistics with an Emphasis in Data Science.
 The catalog course description is:
@@ -85,7 +89,9 @@ Feedback from this data forward approach has been overwhelmingly positive, with 
 
 %The term `Big Data' appears in the title for Stat 129; for this term to be more than a buzz word, we need to define it.
 % TODO: Could talk about how others use this term.
-For the purposes of Stat 129, `big data' means a data set that is large enough such that one cannot load the entire data set into a laptop's memory at once.
+
+Conventionally, big data refers to large, unwieldy data sets that require some effort to analyze \cite{sagiroglu2013big}.
+For the purposes of Stat 129, `big data' has a precise meaning: a data set that is large enough such that one cannot load the entire data set into a laptop's memory at once.
 In a typical introductory data analysis class, a student reads a single data file into R or Python and proceeds with the analysis steps \cite{wickham2023r}.
 This process works great if the data fits into memory, but if the data does not fit into memory, then it doesn't work at all, because it fails at the reading step.
 Data sets that are larger than memory require entirely different approaches, such as first streaming through to filter out a subset of interest.
@@ -147,6 +153,7 @@ Whenever possible we try to teach the tools that are the most common and widely 
 
 
 \section{Server Options}
+\label{sec:serveropt}
 
 % Introduce 
 
@@ -249,6 +256,7 @@ Despite that, it provides a legitimate and simple way to get students using a re
 From a student's perspective, there's no difference between logging in via \texttt{ssh} to a physical machine, or to a virtual machine running on the cloud.
 
 \subsection{Cloud}
+\label{sec:cloud}
 
 The cloud offers the most flexibility of all the server options.
 Indeed, all the different possibilities can be overwhelming.
@@ -352,6 +360,7 @@ None of the available cloud services that we've explored or mentioned have prove
 We conclude by describing what \emph{would} be ideal, based on our experience.
 
 \section{Moving Forward}
+\label{sec:conclusion}
 
 There are many technical details and considerations when relying on a server to teach an undergraduate data analysis class like Stat 129, and we've only provided a broad overview here.
 For a lone instructor with a heavy teaching load and no support, the barriers to entry are significant.
@@ -370,7 +379,7 @@ It should have the following features (listed alphabetically):
     This is perhaps the hardest requirement, because the best way to provide dedicated support is through paid staff.
 \item \textbf{long term sustainability} 
     If instructors and institutions are going to invest in creating courses that rely on a server, then they need to have some assurance that the server will continue to exist.
-    A 1 year pilot program might be a useful start, but it's much more compelling to have a guarantee that a server will be available for the next 5 years.
+    A 1 year pilot program might be a useful start, but it's much more compelling to have a guarantee that a server will be available for teaching for the next 5 years.
 \item \textbf{minimal specificity}
     It's ideal if students in a one semester data science class don't need to learn concepts specific to one system or vendor, as discussed in Sections~\ref{sec:server} and~\ref{sec:comcloud}.
 \item \textbf{novice user safeguards} It should not be possible for one student to delete or damage course infrastructure, either accidentally or on purpose.
