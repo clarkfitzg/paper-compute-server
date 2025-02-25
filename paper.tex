@@ -16,13 +16,13 @@
 \usepackage{authblk}
 
 \title{Compute Servers for Teaching Big Data}
-%\author{Anonymous- for review}
-\author{Clark Fitzgerald \protect\\
-phone: 916-278-4748, email: \href{mailto:fitzgerald@csus.edu}{fitzgerald@csus.edu} \protect\\ 
-Department of Mathematics and Statistics \protect\\ 
-California State University, Sacramento \protect\\ 
-6000 J Street, Sacramento, CA 95819, United States
-}
+\author{Anonymous- for review}
+%\author{Clark Fitzgerald, Assistant Professor \protect\\
+%phone: 916-278-4748, email: \href{mailto:fitzgerald@csus.edu}{fitzgerald@csus.edu} \protect\\ 
+%Department of Mathematics and Statistics \protect\\ 
+%California State University, Sacramento \protect\\ 
+%6000 J Street, Sacramento, CA 95819, United States
+%}
 \begin{document}
 
 %X The title of the manuscript.
@@ -40,7 +40,7 @@ keywords: big data, cloud computing, data science, education, pedagogy, statisti
 \begin{abstract}
 
 % 98 words in abstract
-% ~5000 words in document
+% ~5334 words in document
     We compare and contrast a variety of compute server options for teaching an undergraduate statistics class centered on analyzing large, real world data sets.
 These server options include institutionally supported servers, personal physical servers, public cloud services, and commercial cloud services.
 We briefly describe the course, share our experience with each of these options, advantages and disadvantages, some technical considerations, and suggest when to choose which option.
@@ -58,16 +58,16 @@ This is certainly a tall order, but the graduate who has the ability to even \em
 Success requires technical computing skills, sound statistical reasoning, and an ability to `think with data'.
 
 We designed and taught a class whose implicit goal is to prepare students for the scenario described above, and this paper contains some of the key insights and experience we've acquired along the way.
-Section~\ref{sec:stat129} describes the class, including what kind of data suits our pedagogical purpose (Section~\ref{sec:data}) and why we need a compute server (Section~\ref{sec:server}).
+Section~\ref{sec:stat129} describes the class, including what kind of data suits our pedagogical purpose and why we need a compute server.
 Section~\ref{sec:serveropt} provides an overview of the role of the server in our class, and discusses the two physical server options: institutionally supported and personal.
 Section~\ref{sec:cloud} covers cloud server options, including publicly funded and commercial.
 Section~\ref{sec:conclusion} concludes with our `wish list' for an ideal shared educational compute service that will allow many instructors to simultaneously teach similar classes without the overhead of administering their own server.
 
 
 \section{The class: Stat 129}
-\ref{sec:stat129}
+\label{sec:stat129}
 
-Stat 129, `Analyzing and Processing Big Data', is an upper division elective course offered by the Mathematics and Statistics Department at CSU Sacramento, and is required for students pursuing a bachelor's degree in Statistics with an Emphasis in Data Science.
+Stat 129, `Analyzing and Processing Big Data', is an upper division elective course offered by the Mathematics and Statistics Department at CSU Sacramento, and is required for students pursuing a bachelor's degree in statistics with an emphasis in data science.
 The catalog course description is:
 
 \begin{quote}
@@ -76,7 +76,7 @@ Statistical analysis of large, complex data sets. Topics include memory efficien
 
 Stat 129 uses technologies including bash, Python, and SQL to analyze large data sets, with the intention of exposing students to common tools in data science.
 Students tend to be highly motivated, working towards a job in data science after graduation.
-Stat 129 requires a programming prerequisite, since it is too advanced for a first programming course.
+Stat 129 requires a programming prerequisite, and the most successful students have been very comfortable with programming.
 %Statistics majors take Stat 129 after taking Stat 128, `Statistical Computing', an upper division course focused on data analysis using the R programming language.
 %Ideally, students would have taken two semesters of programming before this course.
 
@@ -114,7 +114,7 @@ When teaching Stat 129, we look for data sets that satisfy the following criteri
 	Avoid proprietary, novel, or highly specialized data formats.
 \item \textbf{background knowledge}
     A college student should be able to understand what the data actually represents in a single class period.
-    For example, weather data such as Global Historical Climatology Network-Daily Database \cite{menne2012overview} works great, as each row represents a weather observation for a specific date and location.
+    For example, in the Global Historical Climatology Network-Daily Database \cite{menne2012overview}, each row represents one weather observation for a specific date and location, which is easy to explain.
 \end{enumerate}
 The above criteria don't necessarily apply to more domain specific classes. 
 For example, a bioinformatics class studying genomes would do well to focus on the specialized formats of genomic data.
@@ -152,7 +152,7 @@ It's possible to do this with a cluster, but it takes either more advanced knowl
 Whenever possible we try to teach the tools that are the most common and widely applicable, to better serve the students in their future careers.
 
 
-\section{Server Options}
+\section{Servers}
 \label{sec:serveropt}
 
 % Introduce 
@@ -255,7 +255,7 @@ The physical server feels out of date, and lacks the cachet of being `the cloud'
 Despite that, it provides a legitimate and simple way to get students using a remote server.
 From a student's perspective, there's no difference between logging in via \texttt{ssh} to a physical machine, or to a virtual machine running on the cloud.
 
-\subsection{Cloud}
+\section{Cloud}
 \label{sec:cloud}
 
 The cloud offers the most flexibility of all the server options.
@@ -283,7 +283,7 @@ Now we turn our attention to the two cloud provider options: public and commerci
 
 % TODO: mention RStudio somewhere
 
-\subsubsection{Public Cloud}
+\subsection{Public Cloud}
 
 We have had an excellent experience teaching Stat 129 using the NSF funded cloud provider, Jetstream2 \cite{hancock2021jetstream2}.
 In this model, the instructor applies for an allocation, the reviewers award a certain number of compute hours, and the instructor sets up the accounts on the machines.
@@ -327,7 +327,7 @@ We expect the reviewers would renew every year if there is funding available, bu
 Annual renewal isn't an issue if someone is paying for commercial cloud services, and we turn our attention here next.
 
 
-\subsubsection{Commercial Cloud}
+\subsection{Commercial Cloud}
 \label{sec:comcloud}
 
 Several companies offer commercial cloud services.

@@ -1,3 +1,5 @@
+paper.pdf: paper.tex
+
 %.html: %.md
 	pandoc -s $< -o $@
 
