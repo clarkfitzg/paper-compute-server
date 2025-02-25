@@ -3,8 +3,8 @@
 \usepackage{geometry}
 %\geometry{margin=1in}
 
-%\usepackage{setspace}
-%\doublespacing
+\usepackage{setspace}
+\doublespacing
 
 \usepackage{graphicx}
 
@@ -16,11 +16,26 @@
 \usepackage{authblk}
 
 \title{Compute Servers for Teaching Big Data}
-\author[1]{Clark Fitzgerald}
-\affil[1]{Department of Mathematics and Statistics \protect\\ California State University Sacramento}
+%\author{Anonymous- for review}
+\author{Clark Fitzgerald \protect\\
+phone: 916-278-4748, email: \href{mailto:fitzgerald@csus.edu}{fitzgerald@csus.edu} \protect\\ 
+Department of Mathematics and Statistics \protect\\ 
+California State University, Sacramento \protect\\ 
+6000 J Street, Sacramento, CA 95819, United States
+}
 \begin{document}
 
+%X The title of the manuscript.
+%X Details of all co-authors, including their full names, departments, institutions, cities, and countries of residence.
+%X Identity and complete contact details of the corresponding author, including his/her full name, postal and e-mail addresses, and telephone and fax numbers.
+%X five to six keywords or phrases suitable for use in an index
+
+
 \maketitle
+
+keywords: big data, cloud computing, data science, education, pedagogy, statistical computing
+
+\newpage
 
 \begin{abstract}
 
@@ -31,15 +46,22 @@ These server options include institutionally supported servers, personal physica
 We briefly describe the course, share our experience with each of these options, advantages and disadvantages, some technical considerations, and suggest when to choose which option.
 Looking to the future, we outline requirements for a broadly shared educational compute service that will allow more instructors to teach similar classes without the overhead of administering their own server.
 
-\vspace{0.2in}
-keywords: big data, cloud computing, data science education, statistical computing
-
 \end{abstract}
 
 % TODO: Context, definitions, goals of the course, benefits of such a course to students
 
+\section{Introduction}
 
-\section{Introduction: Stat 129}
+Imagine yourself in the shoes of a student who has just graduated college with an undergraduate degree in statistics, and started their first job working with data.
+The new manager gives them a challenge: ``Here are your login credentials for our cloud provider services. Here's 1 TB of data stored in XML that nobody has yet had time to look at. Familiarize yourself with it and find us some insights.''
+This is certainly a tall order, but the graduate who has the skills to even \emph{begin} such a task is valuable and rare indeed.
+
+Big Data: large, unwieldy  
+
+%Could a recetngraduate from your program even begin this task?
+
+
+\subsection{The class: Stat 129}
 
 Stat 129, `Analyzing and Processing Big Data', is an upper division elective course offered by the Mathematics and Statistics Department at CSU Sacramento, and is required for students pursuing a bachelor's degree in Statistics with an Emphasis in Data Science.
 The catalog course description is:
@@ -376,6 +398,7 @@ It's quite uncommon to see a course designed around the student experience on a 
 We hope that, in the future, compute servers become to a data science bachelor's degree program somewhat like physical laboratory space is to a chemistry program: a necessity.
 
 %We hope to see more courses like Stat 129 are offered in the future.
+
 
 \bibliographystyle{plain}
 \bibliography{references}
