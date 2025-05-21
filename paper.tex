@@ -53,7 +53,7 @@ Looking to the future, we outline requirements for a broadly shared educational 
 \section{Introduction}
 
 Imagine yourself as a student who has just graduated college with an undergraduate degree in applied math or statistics, and started their first job working with data.
-The new manager gives them a challenge: ``Here are your login credentials for our cloud provider services. Here's a few hundred gigabytes of XML data that nobody has yet had time to look at. Familiarize yourself with it and find us some insights.''
+The new manager gives them a challenge: ``Here are your login credentials for our cloud provider services. Here's a few hundred gigabytes of messy data that nobody has yet had time to look at. Familiarize yourself with it and find us some insights.''
 This is certainly a tall order, but the graduate who has the ability to even \emph{begin} such a task is valuable and rare indeed.
 Success requires technical computing skills, sound statistical reasoning, and an ability to `think with data'.
 
@@ -67,7 +67,7 @@ Section~\ref{sec:conclusion} concludes with our `wish list' for an ideal shared 
 \section{The class: Stat 129}
 \label{sec:stat129}
 
-Stat 129, `Analyzing and Processing Big Data', is an upper division elective course offered by the Mathematics and Statistics Department at CSU Sacramento, and is required for students pursuing a bachelor's degree in statistics with an emphasis in data science.
+Stat 129, `Analyzing and Processing Big Data', is an upper division elective course offered by the Mathematics and Statistics Department at California State University, Sacramento, and is required for students pursuing a bachelor's degree in statistics with an emphasis in data science.
 The catalog course description is:
 
 \begin{quote}
@@ -80,8 +80,10 @@ Stat 129 requires a programming prerequisite, and the most successful students h
 %Statistics majors take Stat 129 after taking Stat 128, `Statistical Computing', an upper division course focused on data analysis using the R programming language.
 %Ideally, students would have taken two semesters of programming before this course.
 
-The philosophy behind Stat 129 is to provide students with real world data sets and ask open ended questions, following in the footsteps of our teachers and mentors, Deborah Nolan and Duncan Temple Lang \cite{nolan2010computing}.
-We have been teaching data science programming technologies in an academic setting since 2015, and we developed Stat 129 and have taught it each year since 2021.
+The philosophy behind Stat 129 is to provide students with real world data sets and ask open ended questions, following in the footsteps of Deborah Nolan and Duncan Temple Lang \cite{nolan2010computing}.
+%We have been teaching data science programming technologies in an academic setting since 2015, and we developed Stat 129 and have taught it each year since 2021.
+Our department has offered one section of Stat 129 each Spring semester since 2021.
+Enrollment is capped at 25 students, and Stat 129 has enjoyed strong enrollment, with 18-25 students per year for the last three years.
 Feedback from this data forward approach has been overwhelmingly positive, with several alumni reporting Stat 129 as the most practical class they have taken in college.
 
 \subsection{Which Data?}
@@ -92,27 +94,28 @@ Feedback from this data forward approach has been overwhelmingly positive, with 
 
 Conventionally, big data refers to large, unwieldy data sets that require some effort to analyze \cite{sagiroglu2013big}.
 For the purposes of Stat 129, `big data' has a precise meaning: a data set that is large enough such that one cannot load the entire data set into a laptop's memory at once.
-In a typical introductory data analysis class, a student reads a single data file into R or Python and proceeds with the analysis steps \cite{wickham2023r}.
-This process works great if the data fits into memory, but if the data does not fit into memory, then it doesn't work at all, because it fails at the reading step.
+In a typical introductory data analysis class, a student loads a single data file into memory and proceeds with the analysis steps \cite{wickham2023r}.
+This process works great if the data fits into memory, but if the data does not fit into memory, then it doesn't work at all, because it fails at the loading step.
 Data sets that are larger than memory require entirely different approaches, such as first streaming through to filter out a subset of interest.
 %Once a data set is this large, it's not possible to simply load the whole thing and start working using R or Python.
 Our goal is to choose data sets that are comfortably over this memory threshold, such that the techniques we're learning are motivated, but not gratuitously large such that answering a basic question takes an excessive amount of time.
 Practically speaking, at the time of this writing, a typical student laptop will have between 4 and 32 GB of memory, and data sets that are on the order of 10-100 GB on disk work well to motivate the techniques.
-We assign data analysis tasks that typically take 1 to 10 minutes if done in serial, and are an order of magnitude faster if done in parallel.
+We assign data analysis tasks that typically take 1 to 10 minutes if done sequentially, and are an order of magnitude faster if done in parallel.
 
 %While teaching this course, we have to select data sets.
 %Everything that we do in the course is based on working with a legitimate, unwieldy, data set.
 When teaching Stat 129, we look for data sets that satisfy the following criteria.
 \begin{enumerate}
-\item \textbf{size} The files should be large enough to motivate the computational techniques we're learning, but no larger, as described above.
-\item \textbf{publicly available} The data should be readily available for legal public download.
+\item \textbf{Size:} The files should be large enough to motivate the computational techniques we're learning, but no larger, as described above.
+\item \textbf{Publicly Available:} The data should be readily available for legal public download.
 	Special permissions, non disclosure agreements, and licensing all take time away from teaching.
-\item \textbf{format} 
+\item \textbf{Format:} 
     The data storage format should be a common one that students will encounter in data science work, so that students can directly apply what they learn in class.
     Each semester of Stat 129, we work with at least three data sets: a plain text tabular format such as CSV, a nested format such as XML or JSON, and a SQL database.
-    The data is usually compressed, with one data set stored across multiple files, and this is fine.
+    We spend several weeks working with unstructured text, which we usually extract as a field inside one of the structured formats above.
+    The data is usually compressed, with one data set stored across multiple files.
 	Avoid proprietary, novel, or highly specialized data formats.
-\item \textbf{background knowledge}
+\item \textbf{Background Knowledge:}
     A college student should be able to understand what the data actually represents in a single class period.
     For example, in the Global Historical Climatology Network-Daily Database \cite{menne2012overview}, each row represents one weather observation for a specific date and location, which is easy to explain.
 \end{enumerate}
@@ -136,18 +139,24 @@ To properly analyze them we need to provide our students with a compute server.
 \label{sec:server}
 
 Students must access data and run code on remote servers for a class on `Big Data', because that's where big data is typically found: on remote servers.
-There is a qualitative difference between running code on a laptop with a monitor that's sitting in front of you, and on a machine that you never actually see, that you can only access through \texttt{ssh}, secure shell.
-Our goal with embracing the shell is to move students beyond the initial unfamiliarity and discomfort that users experience when they first move away from a Graphical User Interface (GUI).
+There is a qualitative difference between running code on a laptop with a monitor that's sitting in front of you, and on a machine that you never actually see, that you can only access through \texttt{ssh}, secure shell, a purely text based way of interacting with a remote computer.
+After opening a terminal and logging in to the remote server with \texttt{ssh}, all you see is a \texttt{bash} prompt waiting for you to type commands; this is the command line.
+For example, the following shows what it would look like after the user Jane Doe logged in to the remote server via \texttt{ssh} and entered the \texttt{pwd} command to print her working directory:
+\begin{verbatim}
+jane@nsm-stats:~$ pwd
+/home/jane
+jane@nsm-stats:~$
+\end{verbatim}
+Our goal with embracing the command line is to move students beyond the initial unfamiliarity and discomfort that users experience when they first move away from a Graphical User Interface (GUI).
 %Incidentally, many of the techniques for processing data larger than memory that we teach in this class work equally well on a modest laptop as on a powerful server.
-To access the large data sets and complete the assignments, quizzes, and exams, the students must login to the class server through \texttt{ssh}.
-
-We teach the classic shell bash, because it has proven to be a durable and nearly universal technology.
+The command line is the only way for Stat 129 students to access the large data sets and complete the assignments, quizzes, and exams.
 Multiple alumni of Stat 129 have reported back that it was specifically the command line skills that led directly to them getting a variety of jobs.
-In general, students in technology oriented class such as Stat 129 benefit when instructors focus on ubiquitous and proven core technologies, rather than on what happens to be popular this year, because then they come away with skills that they can apply in many different contexts.
-If one hopes to do anything high performance computing (HPC) or frameworks such Hadoop MapReduce \cite{white2012hadoop}, then a foundational working knowledge of bash is essential.
+
+%Students in technology oriented class such as Stat 129 benefit when instructors focus on ubiquitous and proven core technologies, rather than on what happens to be popular this year, because then they come away with skills that they can apply in many different contexts.
+%If one hopes to do anything high performance computing (HPC) or frameworks such Hadoop MapReduce \cite{white2012hadoop}, then a foundational working knowledge of the command line is essential.
 
 A single server hits the sweet spot for Stat 129; clusters are less ideal, because of the overhead and the abstraction they introduce.
-One topic that we cover in Stat 129 is reading the output of \texttt{top/htop} to identify a bottleneck in a shell pipeline that's streaming hundreds of GB of data.
+One topic that we cover in Stat 129 is reading the output of \texttt{top/htop} to identify a bottleneck in a \texttt{bash} pipeline that's streaming hundreds of GB of data.
 It's possible to do this with a cluster, but it takes either more advanced knowledge, or tools specific to that system.
 Whenever possible we try to teach the tools that are the most common and widely applicable, to better serve the students in their future careers.
 
@@ -157,7 +166,7 @@ Whenever possible we try to teach the tools that are the most common and widely 
 
 % Introduce 
 
-Which server option is best depends on the goals of the course, the level of institutional support, the number of students enrolled, the background of the students, and the background of the instructor.
+Which server option is best depends on the goals of the course, the level of institutional support, the number of students enrolled and their background, as well as the instructor’s preferences.
 The overarching goal of Stat 129 is to statistically analyze real data sets, using professional software.
 Students use the server for every assignment and assessment for 15 weeks, so it makes sense to invest some time teaching them skills and tools with steeper learning curves, such as terminal based text editors.
 If a different class only used a server for two weeks of the semester to examine a single data set, then it probably makes more sense to use a more approachable web browser based graphical user interface to the server such as Jupyter Notebooks \cite{kluyver2016jupyter}, which will inform the best choice of server options.
@@ -187,7 +196,7 @@ If you're in the lucky position of having compute infrastructure with dedicated 
 You simply ask the system administrator for what you need, and they make it happen.
 The challenge for you as the instructor is determining what you need!
 
-We've used a cluster with SLURM \cite{yoo2003slurm} job queueing software, common in high performance computing (HPC), for teaching Stat 141C (Big Data and High Performance Computing) at UC Davis in 2019.
+We've used a cluster with SLURM \cite{yoo2003slurm} job queueing software, common in high performance computing (HPC), for teaching Stat 141C (Big Data and High Performance Computing) at University of California, Davis in 2019.
 The system administrator helped us with the following tasks related to the class:
 \begin{itemize}
 \item Selecting the right servers to use for teaching.
@@ -195,7 +204,7 @@ The system administrator helped us with the following tasks related to the class
 \item Installing R, Python, along with various packages and libraries of software.
 \item Troubleshooting connectivity and user account issues.
     For teaching undergraduate courses, timely, helpful support is much more important than physical compute power.
-\item Setting up and configuring an open source Postgres database for use by students.
+\item Setting up and configuring an open source Postgres database for students.
 \end{itemize}
 Of these tasks, setting up the Postgres database took the most time and expertise, and we were grateful to have the support.
 A system administrator can do many other things as well.
@@ -206,7 +215,7 @@ If you don't have institutional support, then it's possible to be your own syste
 
 A personal physical server is essentially the same as a powerful desktop machine, except that you can access it remotely, and it doesn't need a monitor.
 The machine itself might be in a rack in a server room on campus, or in someone's office.
-The server rack option is generally preferable, as the machines have more CPU's and memory, better internet connectivity, and they don't clutter up your space.
+The server rack option is generally preferable, as the machines have more central processing units (CPU) and memory, better internet connectivity, and they don't clutter up your space.
 Figure~\ref{fig:server} shows the physical machine in our office that is our current solution, after having explored and experienced the others described in this article.
 We find that it is the most pragmatic long term solution, requiring the least effort on our part.
 
@@ -221,7 +230,7 @@ The major advantages of the personal physical server are cost and simplicity.
 Regarding cost, we've found it easier to fund a one time purchase of a few thousand dollars, compared to finding a sponsor who will commit to the ongoing variable subscription fees of the cloud services, even if the total cost would be lower for the cloud subscription.
 It's simple because you can set it up one time, and then use the same machine for several years.
 We didn't need any specialized knowledge beyond the basics.
-We completely own and administrator the machine, so we can install whatever we want, whenever we want.
+We completely own and administrator the machine, so we can install whatever we want, and whenever we want.
 It's relatively easy and direct to automate certain grading tasks, for example, an instructor can use administrative privileges to look at \texttt{history} to see every command a student typed during a quiz.
 If the machine is in your office, then when you launch a big job, the machine will heat up and the cooling fan will turn on, which provides a very real connection to the amount of data being processed for the students in office hours, which is fun.
 
@@ -248,8 +257,8 @@ With more students, we believe that students would feel crowded on the server.
 
 For a server in your office, you must provide remote access so that others can log on to the machine.
 Campus IT handled this by providing a DNS host name.
-Our students need to be either on campus or at home on the campus VPN (Virtual Private Network), and they can login via \texttt{ssh}.
-We recommend against setting up a physical server at your home, because providing reliable remote access could be tough depending on your internet provider, and there's no reason you should pay for the electricity instead of campus.
+Our students need to be either on campus or at home on the campus virtual private network (VPN), and they can login via \texttt{ssh}.
+We recommend against setting up a physical server at your home, because providing reliable remote access could be tough depending on your internet provider, and there's no reason you should pay for the electricity.
 
 The physical server feels out of date, and lacks the cachet of being `the cloud'.
 Despite that, it provides a legitimate and simple way to get students using a remote server.
@@ -266,7 +275,8 @@ Both options have a place, depending on the goals of the class.
 
 Administrative cloud accounts provide students with a richer cloud experience, as they create their own virtual machines which they have complete control over.
 They are the administrators to these machines with \texttt{sudo} access, so they can do anything they wish, and any mistakes they make won't affect anyone else.
-Load balancing works better in this scenario, as students can create machines that are as large as they like, and delete them when they are done.
+Students can create machines that are as large as they like, and delete them when they are done, which solves the problem of many students trying to simultaneously use limited resources on a single machine.
+%When many students are on the same machine, and they're all simultaneously trying to use all the available CPU's right before the deadline for homework submission, this can create load balancing problems.
 Cloud accounts would be a good option if the course is designed to teach them more about infrastructure, for example, how to implement a full stack web application.
 This rich experience does come with some additional complexity and responsibility, for example, students need to load and save their work as they create and delete machines.
 
@@ -298,8 +308,9 @@ Cloud-based and on-demand, the Jetstream2 environment also includes discipline-s
 \end{quote}
 
 The benefits of Jetstream2 are the free cost for students, the simplicity compared to commercial cloud providers, and the ability to connect seamlessly to large data sets.
-Thanks to NSF funding, our students, many of whom are low income, received accounts without needing to provide a credit card.
-The user interface and options are much simpler than commercial cloud providers as Figure~\ref{fig:jetstream} shows. 
+Thanks to NSF funding, our students, many of whom are low income, received accounts without providing a credit card.
+The user interface shown in Figure~\ref{fig:jetstream} is simple and easy to use, with a manageable number of options.
+
 Jetstream2 caters directly to the academic wishing to analyze large data sets through Manila Filesystems as a service.
 We followed the Jetstream2 documentation and mounted a 1 TB Manila file share to the VMs, which allowed students to simultaneously access and analyze shared data as if it was local to their machine \cite{manila}.
 In our experience, Jetstream2 has lived up to its claims of making cloud computing easy and accessible.
@@ -308,7 +319,7 @@ In our experience, Jetstream2 has lived up to its claims of making cloud computi
     \centering
     \includegraphics[width=0.5\textwidth]{jetstream}
     \caption{This screenshot shows how to create a new instance of a virtual machine using Jetstream2.
-This user interface is far simpler and easier to teach compared to commercial cloud providers.}
+This user interface is simple and easy to teach with.}
     \label{fig:jetstream}
 \end{figure}
 
@@ -316,7 +327,7 @@ The main disadvantages of Jetstream2 for teaching college classes are the securi
 Jetstream2 prioritizes the needs of individual researchers and small research groups, and they support this primary use case very well.
 Every user gets complete access to every part of the account on the allocation, which keeps things simple.
 However, if you give students user accounts so that they can have the experience of creating their own VM's, then they will have administrative access to everything the instructor creates, and to every other student's machine.
-There are no limits on how much compute a user can use, so it's possible for one user to use up all the credits for the allocation.
+There are no limits on how much computational time a user can use, so it's possible for one user to use up all the credits for the allocation.
 In other words, the only thing that's stopping them from doing something bad is their own awareness and respect for others, which is not ideal for a group of 20-30 novices.
 We mostly got around these issues by setting very clear expectations for behavior, with the understanding that this whole class is based on trust.
 Even so, a student unintentionally left a large machine running for several weeks.
@@ -334,7 +345,8 @@ Several companies offer commercial cloud services.
 We focused mainly on Amazon Web Services (AWS), the biggest and most popular vendor, to provide our students with marketable experience for their resumes.
 Our favorite feature of AWS is the direct access to Amazon's high quality open data sets through the \texttt{aws s3} command line tools, which eliminate the step of downloading the data and making it available to students.
 
-A sustainable funding model for teaching a class like Stat 129 is to make students pay for commercial cloud services, and this doesn't need to be expensive.
+Sustainable ways to provide servers for teaching a class like Stat 129 are essential, as discussed in Section~\ref{sec:serveropt}.
+A sustainable funding model is to make students pay for commercial cloud services, and this doesn't need to be expensive.
 In Spring 2022, we found that students on AWS can get a rich data processing experience for \$20 or less in one semester, which is less than a low cost textbook for a single course.
 These are commercial services, so a student must have a credit card and be prepared to pay for any compute time and storage that they use.
 If students make a mistake, say using a powerful VM and forgetting to shut it off, then they can easily run up an expensive and unexpected bill that can be tough for a college student to cover.
@@ -346,10 +358,11 @@ Amazon's EC2 (cloud compute server) allows students to create their own VM's, an
 There are also hundreds of different services and many world regions to choose from.
 This is an overwhelming amount of choice for a student or even an instructor, and the available options change regularly.
 Furthermore, the services often have company specific names, which makes it difficult for an instructor to understand what they are.
-Indeed, the main purpose of the `AWS Cloud Practitioner' qualification seems to be to understand all of these proprietary names and services.
+Indeed, the main purpose of the `AWS Cloud Practitioner' certification seems to be to understand all of these proprietary names and services.
 As faculty at a public institution, our goal is to teach the overarching concepts and portable technologies that a student can take and apply anywhere, regardless of the specific vendor.
 
-While we feel that the commercial cloud services aren't currently the best choice for teaching Stat 129 at CSU Sacramento, they might be the best choice for you.
+Critiques aside, commercial cloud services still offer an appealing option for teaching Stat 129.
+With the commercial cloud you can get started very quickly with minimal work and investment.
 If you already have experience with a particular cloud provider, or you wish to build that experience from the ground up, then this is an opportunity. 
 If your institution has some connection with a cloud provider, then it may be mutually beneficial to leverage those connections.
 For example, the company could provide cloud services for free in exchange for the access to recruit graduates into that company.
@@ -372,7 +385,7 @@ It should have the following features (listed alphabetically):
 \item \textbf{data science tools} Students should be able to use common data science programming technologies such as R, Python, and some form of SQL.
     %One way to provide this is to give the instructor administrative privileges to install software.
     Web based tools such as Jupyter Notebooks certainly broaden the appeal and potential user base of the server, but they are not strictly necessary.
-\item \textbf{free or low cost} Free for students is ideal, of course.
+\item \textbf{free or low cost} Free for students is ideal.
     If free is not possible, then the cost over the semester should not exceed that of a reasonably priced textbook.
 \item \textbf{instructor support}
     Instructors without a background in systems administration should be able to teach on the server, and receive some level of technical and community support.
