@@ -57,7 +57,7 @@ The new manager gives them a challenge: ``Here are your login credentials for ou
 This is certainly a tall order, but the graduate who has the ability to even \emph{begin} such a task is valuable and rare indeed.
 Success requires technical computing skills, sound statistical reasoning, and an ability to `think with data'.
 
-The implicit goal of Stat 129, a class in `Big Data' at California State University, Sacramento, is to prepare students for the scenario described above.
+The implicit goal of STAT 129, a class in `Big Data' at California State University, Sacramento, is to prepare students for the scenario described above.
 This paper contains some of the key insights and experience from developing and teaching this course for the past five years.
 Section~\ref{sec:stat129} describes the class, including what kind of data suits our pedagogical purpose and why we need a compute server.
 Section~\ref{sec:serveropt} provides an overview of the role of the server in our class, and discusses the two physical server options: institutionally supported and personal.
@@ -65,37 +65,38 @@ Section~\ref{sec:cloud} covers cloud server options, including publicly funded a
 Section~\ref{sec:conclusion} concludes with our `wish list' for an ideal shared educational compute service that will allow many instructors to simultaneously teach similar classes without the overhead of administering their own server.
 
 
-\section{The class: Stat 129}
+\section{The class: STAT 129}
 \label{sec:stat129}
 
-Stat 129, `Analyzing and Processing Big Data', is an upper division elective course offered by the Mathematics and Statistics Department at California State University, Sacramento, and is required for students pursuing a bachelor's degree in statistics with an emphasis in data science.
+STAT 129, titled `Analyzing and Processing Big Data', is an upper division elective course offered by the Mathematics and Statistics Department at California State University, Sacramento, and is required for students pursuing a bachelor's degree in statistics with an emphasis in data science.
 The catalog course description is:
 
 \begin{quote}
 Statistical analysis of large, complex data sets. Topics include memory efficient data processing, the split-apply-combine strategy, rewriting programs for scalability, handling complex data formats, and applications such as statistical learning, dimension reduction, and efficient data representation. Students will access data and run code on remote servers.
 \end{quote}
 
-Stat 129 uses technologies including bash, Python, and SQL to analyze large data sets, with the intention of exposing students to common tools in data science.
+STAT 129 uses technologies including bash, Python, and SQL to analyze large data sets, with the intention of exposing students to common tools in data science.
 Students tend to be highly motivated, working towards a job in data science after graduation.
-Stat 129 requires a programming prerequisite, and the most successful students have been very comfortable with programming.
-%Statistics majors take Stat 129 after taking Stat 128, `Statistical Computing', an upper division course focused on data analysis using the R programming language.
+STAT 129 requires a prerequisite class in programming, and the most successful students came into the class with strong programming skills.
+
+%Statistics majors take STAT 129 after taking Stat 128, `Statistical Computing', an upper division course focused on data analysis using the R programming language.
 %Ideally, students would have taken two semesters of programming before this course.
 
-The philosophy behind Stat 129 is to provide students with real world data sets and ask open ended questions, following in the footsteps of Deborah Nolan and Duncan Temple Lang \cite{nolan2010computing}.
-We are statistics faculty with a background in computing, and we've developed and taught Stat 129 each Spring semester since 2021.
-%We have been teaching data science programming technologies in an academic setting since 2015, and we developed Stat 129 and have taught it each year since 2021.
+The philosophy behind STAT 129 is to provide students with real world data sets and ask open ended questions, following in the footsteps of Deborah Nolan and Duncan Temple Lang \cite{nolan2010computing}.
+We are statistics faculty with a background in computing, and we've developed and taught STAT 129 each Spring semester since 2021.
+%We have been teaching data science programming technologies in an academic setting since 2015, and we developed STAT 129 and have taught it each year since 2021.
 %Our department has offered one section of 
-Enrollment is capped at 25 students, and Stat 129 has enjoyed strong enrollment, with 18-25 students per year for the last three years.
-Feedback from our data forward approach has been overwhelmingly positive, with several alumni reporting Stat 129 as the most practical class they have taken in college.
+Enrollment is capped at 25 students, and STAT 129 has enjoyed strong enrollment, with 18-25 students per year for the last three years.
+Feedback from our data forward approach has been overwhelmingly positive, with several alumni reporting STAT 129 as the most practical class they have taken in college.
 
 \subsection{Which Data?}
 \label{sec:data}
 
-%The term `Big Data' appears in the title for Stat 129; for this term to be more than a buzz word, we need to define it.
+%The term `Big Data' appears in the title for STAT 129; for this term to be more than a buzz word, we need to define it.
 % TODO: Could talk about how others use this term.
 
 Conventionally, big data refers to large, unwieldy data sets that require some effort to analyze \cite{sagiroglu2013big}.
-For the purposes of Stat 129, `big data' has a precise meaning: a data set that is large enough such that one cannot load the entire data set into a laptop's memory at once.
+For the purposes of STAT 129, `big data' has a precise meaning: a data set that is large enough such that one cannot load the entire data set into a laptop's memory at once.
 In a typical introductory data analysis class, a student loads a single data file into memory and proceeds with the analysis steps \cite{wickham2023r}.
 This process works great if the data fits into memory, but if the data does not fit into memory, then it does not work at all, because it fails at the loading step.
 Data sets that are larger than memory require entirely different approaches, such as first streaming through to filter out a subset of interest.
@@ -106,14 +107,14 @@ We assign data analysis tasks that typically take 1 to 10 minutes if done sequen
 
 %While teaching this course, we have to select data sets.
 %Everything that we do in the course is based on working with a legitimate, unwieldy, data set.
-When teaching Stat 129, we look for data sets that satisfy the following criteria.
+When teaching STAT 129, we look for data sets that satisfy the following criteria.
 \begin{enumerate}
-\item \textbf{Size:} The files should be large enough to motivate the computational techniques we are learning, but no larger, as described above.
+\item \textbf{Size:} The files should be large enough to motivate the computational techniques taught in class, but not excessively large, as described above.
 \item \textbf{Publicly Available:} The data should be readily available for legal public download.
 	Special permissions, non disclosure agreements, and licensing all take time away from teaching.
 \item \textbf{Format:} 
     The data storage format should be a common one that students will encounter in data science work, so that students can directly apply what they learn in class.
-    Each semester of Stat 129, we work with at least three data sets: a plain text tabular format such as CSV, a nested format such as XML or JSON, and a SQL database.
+    Each semester of STAT 129, we work with at least three data sets: a plain text tabular format such as CSV, a nested format such as XML or JSON, and a SQL database.
     We spend several weeks working with unstructured text, which we usually extract as a field inside one of the structured formats above.
     The data is usually compressed, with one data set stored across multiple files.
 	Avoid proprietary, novel, or highly specialized data formats.
@@ -124,16 +125,23 @@ When teaching Stat 129, we look for data sets that satisfy the following criteri
 The above criteria do not necessarily apply to more domain specific classes. 
 For example, a bioinformatics class studying genomes would do well to focus on the specialized formats of genomic data.
 %Most of these principles We've violated at one time or another, and the difficulties became clear later.
-Amazon Open Data\footnote{\url{https://registry.opendata.aws/}} has provided a reliably good source of large data sets fitting these criteria. 
-The US government\footnote{\url{https://data.gov/}} is another good source.
+Amazon Open Data \cite{aws-opendata} has provided a reliably good source of large data sets fitting these criteria.
+The US government \cite{data-gov} is another good source.
 
 It may be possible to pre-process the data set before providing it to students to make it better suit the goals of the course.
 We often find interesting data sets that are close, but not quite what we are looking for.
 Consider the public tax return data on nonprofits provided by the Internal Revenue Service of the United States\cite{irs990}.
-We removed the XML namespace information in these files so that students learning XPATH can write \texttt{"//ActivityOrMissionDesc"} to find the `activity or mission description' for a nonprofit rather than the cumbersome \texttt{//*[local-name()='ActivityOrMissionDesc']}.
+We removed the XML namespace information in these files so that students learning XPATH can write:
+\begin{verbatim}
+//ActivityOrMissionDesc
+\end{verbatim}
+to find the `activity or mission description' for a nonprofit rather than the cumbersome:
+\begin{verbatim}
+//*[local-name()='ActivityOrMissionDesc']
+\end{verbatim}
 The latter is distracting for students just learning XPATH.
 
-Large data sets are the heart of Stat 129.
+Large data sets are the heart of STAT 129.
 To properly analyze them we need to provide our students with a compute server.
 
 
@@ -151,16 +159,20 @@ jane@nsm-stats:~$
 \end{verbatim}
 Our goal with embracing the command line is to move students beyond the initial unfamiliarity and discomfort that users experience when they first move away from a Graphical User Interface (GUI).
 %Incidentally, many of the techniques for processing data larger than memory that we teach in this class work equally well on a modest laptop as on a powerful server.
-The command line is the only way for Stat 129 students to access the large data sets and complete the assignments, quizzes, and exams.
-Multiple alumni of Stat 129 have reported back that it was specifically the command line skills that led directly to them getting a variety of jobs.
+The command line is the only way for STAT 129 students to access the large data sets and complete the assignments, quizzes, and exams.
+Multiple alumni of STAT 129 have reported back that it was specifically the command line skills that led directly to them getting a variety of jobs.
 
-%Students in technology oriented class such as Stat 129 benefit when instructors focus on ubiquitous and proven core technologies, rather than on what happens to be popular this year, because then they come away with skills that they can apply in many different contexts.
+%Students in technology oriented class such as STAT 129 benefit when instructors focus on ubiquitous and proven core technologies, rather than on what happens to be popular this year, because then they come away with skills that they can apply in many different contexts.
 %If one hopes to do anything high performance computing (HPC) or frameworks such Hadoop MapReduce \cite{white2012hadoop}, then a foundational working knowledge of the command line is essential.
 
-A single server hits the sweet spot for Stat 129; clusters are less ideal, because of the overhead and the abstraction they introduce.
-One topic that we cover in Stat 129 is reading the output of \texttt{top/htop} to identify a bottleneck in a \texttt{bash} pipeline that is streaming hundreds of GB of data.
+A single server hits the sweet spot for STAT 129; clusters are less ideal, because of the overhead and the abstraction they introduce.
+One topic that we cover in STAT 129 is reading the output of \texttt{top/htop} to identify a bottleneck in a \texttt{bash} pipeline that is streaming hundreds of GB of data.
 It is possible to do this with a cluster, but it takes either more advanced knowledge, or tools specific to that system.
 Whenever possible we try to teach the tools that are the most common and widely applicable, to better serve the students in their future careers.
+
+\subsection{Student Experience}
+\label{sec:students}
+
 
 
 \section{Servers}
@@ -169,13 +181,13 @@ Whenever possible we try to teach the tools that are the most common and widely 
 % Introduce 
 
 Which server option is best depends on the goals of the course, the level of institutional support, the number of students enrolled and their background, as well as the instructor’s preferences.
-The overarching goal of Stat 129 is to statistically analyze real data sets, using professional software.
+The overarching goal of STAT 129 is to statistically analyze real data sets, using professional software.
 Students use the server for every assignment and assessment for 15 weeks, so it makes sense to invest some time teaching them skills and tools with steeper learning curves, such as terminal based text editors.
 If a different class only used a server for two weeks of the semester to examine a single data set, then it probably makes more sense to use a more approachable web browser based graphical user interface to the server such as Jupyter Notebooks \cite{kluyver2016jupyter}, which will inform the best choice of server options.
 
 Here are some details of our specific situation.
 We had no servers available to use for teaching at the department, college, or university level; however, the college did generously provide us with startup funds, which funded the experimentation that led to this paper.
-The Mathematics and Statistics Department at Sacramento State University plans to offer Stat 129 once a year for the foreseeable future, so we need a long term solution for a server.
+The Mathematics and Statistics Department at Sacramento State University plans to offer STAT 129 once a year for the foreseeable future, so we need a long term solution for a server.
 In a given year we will have one instructor, 15-30 students, and no staff, teaching assistants, or other support.
 We do not need a large machine for any purpose other than teaching.
 We have some professional background in programming, and our server administration experience has proven especially useful.
@@ -193,7 +205,7 @@ We have yet to discover a perfect solution, and what is best for you may well di
 
 \subsection{Institutional Support}
 
-Institutional support for teaching a class like Stat 129 varies widely.
+Institutional support for teaching a class like STAT 129 varies widely.
 If you are in the lucky position of having compute infrastructure with dedicated support in your department, college, or university, then this is an ideal option for teaching classes.
 You simply ask the system administrator for what you need, and they make it happen.
 The challenge for you as the instructor is determining what you need!
@@ -236,7 +248,9 @@ We completely own and administrator the machine, so we can install whatever we w
 It is relatively easy and direct to automate certain grading tasks, for example, an instructor can use administrative privileges to look at \texttt{history} to see every command a student typed during a quiz.
 If the machine is in your office, then when you launch a big job, the machine will heat up and the cooling fan will turn on, which provides a very real connection to the amount of data being processed for the students in office hours, which is fun.
 
-The disadvantage of a single physical machine is that if there is a problem, then it affects the entire class, and we are our own support.
+The primary disadvantage of a single physical machine is that if it fails, then the class effectively stops.
+If students cannot use the server, then they cannot do their homework, and they cannot do quizzes.
+If you are managing the server, then you must identify and fix the problem.
 Students have made mistakes and filled up all the disk space, and we needed to diagnose and fix the issue on our own.
 Pedagogically, this mistake followed by the unusable server highlights the importance of not creating unnecessary copies when working with large amounts of data, and it makes students more aware of exactly what happens if they inadvertantly uncompress and save an excessive amount of data.
 The fix is straightforward: just delete the big files.
@@ -271,7 +285,7 @@ From a student's perspective, there is no difference between logging in via \tex
 
 The cloud offers the most flexibility of all the server options.
 Indeed, all the different possibilities can be overwhelming.
-In Stat 129, students process data by logging into a virtual machine (VM), a logical rather than a physical computer.
+In STAT 129, students process data by logging into a virtual machine (VM), a logical rather than a physical computer.
 We have experimented with two ways of providing students with cloud access: local user accounts for each student on a VM, and administrative cloud accounts for every student.
 Both options have a place, depending on the goals of the class.
 
@@ -297,12 +311,12 @@ Now we turn our attention to the two cloud provider options: public and commerci
 
 \subsection{Public Cloud}
 
-We have had an excellent experience teaching Stat 129 using the NSF funded cloud provider, Jetstream2 \cite{hancock2021jetstream2}.
+We have had an excellent experience teaching STAT 129 using the NSF funded cloud provider, Jetstream2 \cite{hancock2021jetstream2}.
 In this model, the instructor applies for an allocation, the reviewers award a certain number of compute hours, and the instructor sets up the accounts on the machines.
 We applied, were approved, and had everything set up in less than a week.
 The reviewer awarded $100,000$ service units to teach the class, which was several times more than we requested, and this proved to be plenty for 20 students over a semester.
 
-The Jetstream2 website\footnote{\url{https://jetstream-cloud.org/index.html}} states:
+The Jetstream2 website \cite{jetstream-web} states:
 \begin{quote}
 Jetstream2 makes cutting-edge high-performance computing and software easy to use for research regardless of your project’s scale, even if you have limited experience with supercomputing systems.
 
@@ -335,7 +349,7 @@ We mostly got around these issues by setting very clear expectations for behavio
 Even so, a student unintentionally left a large machine running for several weeks.
 We were not monitoring as diligently as we should have, and this used up a significant portion of our available compute time, but we still had plenty to get through the course.
 
-Finally, our allocation on Jetstream2 required annual renewal, which makes us hesitate to rely on it as a long term solution for teaching Stat 129.
+Finally, our allocation on Jetstream2 required annual renewal, which makes us hesitate to rely on it as a long term solution for teaching STAT 129.
 We expect the reviewers would renew every year if there is funding available, but there are no guarantees.
 Annual renewal is not an issue if someone is paying for commercial cloud services, and we turn our attention here next.
 
@@ -347,7 +361,7 @@ Several companies offer commercial cloud services.
 We focused mainly on Amazon Web Services (AWS), the biggest and most popular vendor, to provide our students with marketable experience for their resumes.
 Our favorite feature of AWS is the direct access to Amazon's high quality open data sets through the \texttt{aws s3} command line tools, which eliminate the step of downloading the data and making it available to students.
 
-Sustainable ways to provide servers for teaching a class like Stat 129 are essential, as discussed in Section~\ref{sec:serveropt}.
+Sustainable ways to provide servers for teaching a class like STAT 129 are essential, as discussed in Section~\ref{sec:serveropt}.
 A sustainable funding model is to make students pay for commercial cloud services, and this does not need to be expensive.
 In Spring 2022, we found that students on AWS can get a rich data processing experience for \$20 or less in one semester, which is less than a low cost textbook for a single course.
 These are commercial services, so a student must have a credit card and be prepared to pay for any compute time and storage that they use.
@@ -363,7 +377,7 @@ Furthermore, the services often have company specific names, which makes it diff
 Indeed, the main purpose of the `AWS Cloud Practitioner' certification seems to be to understand all of these proprietary names and services.
 As faculty at a public institution, our goal is to teach the overarching concepts and portable technologies that a student can take and apply anywhere, regardless of the specific vendor.
 
-Critiques aside, commercial cloud services still offer an appealing option for teaching Stat 129.
+Critiques aside, commercial cloud services still offer an appealing option for teaching STAT 129.
 With the commercial cloud you can get started very quickly with minimal work and investment.
 If you already have experience with a particular cloud provider, or you wish to build that experience from the ground up, then this is an opportunity. 
 If your institution has some connection with a cloud provider, then it may be mutually beneficial to leverage those connections.
@@ -371,13 +385,13 @@ For example, the company could provide cloud services for free in exchange for t
 
 If the goal of your course is to focus more on a specific technology such as R, Python, or SQL, then you should consider popular vendors such as Posit Cloud (formerly RStudio), Anaconda Cloud, or Snowflake.
 These vendors use commercial cloud services as a foundation, abstract away many of the complicated details of server administration, and provide a familiar web based user interface.
-None of the available cloud services that we have explored or mentioned have proven to be ideal for teaching Stat 129.
+None of the available cloud services that we have explored or mentioned have proven to be ideal for teaching STAT 129.
 We conclude by describing what \emph{would} be ideal, based on our experience.
 
 \section{Moving Forward}
 \label{sec:conclusion}
 
-There are many technical details and considerations when relying on a server to teach an undergraduate data analysis class like Stat 129, and we have only provided a broad overview here.
+There are many technical details and considerations when relying on a server to teach an undergraduate data analysis class like STAT 129, and we have only provided a broad overview here.
 For a lone instructor with a heavy teaching load and no support, the barriers to entry are significant.
 If it was easier to procure, configure, and run a server, then we believe that more instructors would be interested in teaching these courses.
 
@@ -401,7 +415,7 @@ It should have the following features (listed alphabetically):
     Standard Linux user accounts without administrative privileges work fine.
 \item \textbf{parallel capability}
     The parallel processing capabilities of the server should exceed those of a common laptop to provide a compelling reason to actually use the server.
-    In practice, with 10 CPU's students can experience an order of magnitude speedup compared to a serial program, and this is enough to motivate the techniques in Stat 129.
+    In practice, with 10 CPU's students can experience an order of magnitude speedup compared to a serial program, and this is enough to motivate the techniques in STAT 129.
     An abundance of compute power is definitely not necessary if instructors follow the advice in Section~\ref{sec:data}.
 \item \textbf{shared data storage} It should be easy for an entire class to simultaneously read and share the same large data sets.
     100 GB of storage would suffice, 1 TB of storage would be great, and 10 TB would be more than enough.
@@ -421,7 +435,7 @@ Large data sets are here to stay, and we serve our students well by teaching the
 It is quite uncommon to see a course designed around the student experience on a server, particularly in a mathematics and statistics department.
 We hope that, in the future, compute servers become to a data science bachelor's degree program somewhat like physical laboratory space is to a chemistry program: a necessity.
 
-%We hope to see more courses like Stat 129 are offered in the future.
+%We hope to see more courses like STAT 129 are offered in the future.
 
 
 \bibliographystyle{plain}
